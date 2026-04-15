@@ -333,6 +333,11 @@ a{text-decoration:none;color:inherit}
 /* ── 스탯카드 단위 텍스트 ── */
 .sc-unit{font-size:14px;font-weight:400}
 
+/* ── 결론 섹션 그리드 ── */
+.cln-2grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:13px}
+.finding-card{border-radius:8px;padding:18px 20px}
+
 /* ── 반응형 768px 이하 ── */
 @media(max-width:768px){
   .sidebar{
@@ -351,13 +356,16 @@ a{text-decoration:none;color:inherit}
   .anova-bar-track{height:24px}
   .raw-search{width:100%}
   .raw-dl-btn{margin-left:0;width:100%;text-align:center}
-  .vc-formula-eq{font-size:11px;padding:6px 10px}
+  .vc-formula-eq{font-size:11px;padding:6px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
   .var-card-bd{padding:14px 14px}
   .vc-result-row{grid-template-columns:1fr 1fr;gap:8px}
   .vc-stats-grid{grid-template-columns:1fr 1fr;gap:6px}
   .grp-row{grid-template-columns:1fr auto}
   .grp-track{display:none}
   .sub-sec{margin-bottom:20px;padding-bottom:20px}
+  .predict-box{padding:14px 14px}
+  .predict-scenario{padding:8px 10px;font-size:12px}
+  .finding-card{padding:14px 16px}
 }
 /* ── 반응형 480px 이하 ── */
 @media(max-width:480px){
@@ -369,6 +377,26 @@ a{text-decoration:none;color:inherit}
   .sc-val{font-size:20px}
   .sec-header{padding:14px 16px}
   .sec-icon{font-size:24px}
+  /* 결론 섹션 그리드 → 1열 */
+  .cln-2grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr}
+  /* 테이블 min-width 해제 */
+  .stbl{min-width:0;font-size:11px}
+  .stbl-wide{min-width:0}
+  .stbl th,.stbl td{padding:6px 8px}
+  /* 사후검정 테이블 컬럼 초기화 */
+  .posthoc-tbl th:nth-child(n),.posthoc-tbl td:nth-child(n){
+    width:auto;min-width:0;max-width:none;font-size:10px;padding:5px 6px
+  }
+  /* 수식 박스 */
+  .vc-formula-eq{font-size:10px;padding:5px 8px}
+  /* predict-box 패딩 축소 */
+  .predict-box{padding:12px 12px}
+  .predict-scenario{font-size:11.5px}
+  /* 발견 카드 패딩 축소 */
+  .finding-card{padding:12px 14px}
+  /* 100만 원 시나리오 폰트 */
+  .scenario-grid .sc-result-val{font-size:20px}
 }
 @media(min-width:769px){.menu-btn{display:none}}
 /* ── 기술통계 테이블 번갈아 색상 강조 ── */
@@ -1825,7 +1853,7 @@ a{text-decoration:none;color:inherit}
     <!-- 4개 핵심 발견 -->
     <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px">
 
-      <div style="border:1px solid #bbf7d0;border-left:5px solid #16a34a;border-radius:8px;padding:18px 20px;background:#f0fdf4">
+      <div class="finding-card" style="border:1px solid #bbf7d0;border-left:5px solid #16a34a;background:#f0fdf4">
         <div style="font-weight:700;color:#15803d;font-size:14px;margin-bottom:10px">📌 발견 1 — 순자산, 보수율, 거래량은 수익률을 거의 설명하지 못합니다</div>
         <div style="font-size:13px;line-height:1.85;color:#14532d">
           순자산이 크고, 보수가 낮고, 거래량이 많은 ETF가 당연히 수익률도 좋을 것 같지만 — <strong>이 분석에서는 그렇지 않습니다.</strong><br>
@@ -1837,11 +1865,11 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
 
-      <div style="border:1px solid #bfdbfe;border-left:5px solid #2563eb;border-radius:8px;padding:18px 20px;background:#eff6ff">
+      <div class="finding-card" style="border:1px solid #bfdbfe;border-left:5px solid #2563eb;background:#eff6ff">
         <div style="font-weight:700;color:#1d4ed8;font-size:14px;margin-bottom:10px">📌 발견 2 — 어느 나라에 투자하는 ETF인지가 수익률의 26%를 결정합니다</div>
         <div style="font-size:13px;line-height:1.85;color:#1e3a8a">
           같은 ETF라도 <strong>한국 주식에 투자하느냐, 미국·중국 주식에 투자하느냐</strong>에 따라 수익률이 크게 달랐습니다.<br><br>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px">
+          <div class="cln-2grid">
             <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #bfdbfe;text-align:center">
               <div style="color:#64748b;margin-bottom:4px">한국 투자 ETF</div>
               <div style="font-size:20px;font-weight:800;color:#1d4ed8">+129.6%</div>
@@ -1865,12 +1893,12 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
 
-      <div style="border:1px solid #fed7aa;border-left:5px solid #ea580c;border-radius:8px;padding:18px 20px;background:#fff7ed">
+      <div class="finding-card" style="border:1px solid #fed7aa;border-left:5px solid #ea580c;background:#fff7ed">
         <div style="font-weight:700;color:#c2410c;font-size:14px;margin-bottom:10px">📌 발견 3 — 어느 운용사 ETF인지가 수익률의 31.5%를 결정합니다 (가장 강한 요인)</div>
         <div style="font-size:13px;line-height:1.85;color:#7c2d12">
           10개 변수 중 <strong>운용사(X10)가 수익률 차이를 가장 많이 설명</strong>하는 요인으로 나타났습니다.<br>
           운용사 선택만으로 수익률이 약 100%p 이상 차이가 납니다.<br><br>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px">
+          <div class="cln-2grid">
             <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #fed7aa;text-align:center">
               <div style="color:#64748b;margin-bottom:4px">미래에셋자산운용</div>
               <div style="font-size:20px;font-weight:800;color:#ea580c">+123.2%</div>
@@ -1894,7 +1922,7 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
 
-      <div style="border:1px solid #e9d5ff;border-left:5px solid #9333ea;border-radius:8px;padding:18px 20px;background:#fdf4ff">
+      <div class="finding-card" style="border:1px solid #e9d5ff;border-left:5px solid #9333ea;background:#fdf4ff">
         <div style="font-weight:700;color:#7e22ce;font-size:14px;margin-bottom:10px">📌 발견 4 — 운용 방식과 전략도 수익률에 영향을 줍니다</div>
         <div style="font-size:13px;line-height:1.85;color:#581c87">
           <strong>복제방법</strong>: 지수 구성 종목을 그대로 따라 사는 <strong>완전복제(127.6%)</strong>가 파생상품·해외주식 간접 보유 방식보다 수익률이 높았습니다.<br>
@@ -1909,7 +1937,7 @@ a{text-decoration:none;color:inherit}
     <!-- 100만 원 투자 시나리오 -->
     <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:20px">
       <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:16px">💰 만약 1년 전(2025년 초) 100만 원을 투자했다면?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:13px">
+      <div class="scenario-grid">
         <div style="background:#fff;border:2px solid #16a34a;border-radius:8px;padding:16px">
           <div style="font-weight:700;color:#15803d;margin-bottom:10px;font-size:13px">✅ 최적 조합 시나리오</div>
           <div style="color:#374151;line-height:2.0;font-size:12.5px">
