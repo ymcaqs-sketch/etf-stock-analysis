@@ -1805,37 +1805,155 @@ a{text-decoration:none;color:inherit}
   <div class="sec-header sh-green">
     <span class="sec-icon">💡</span>
     <div><div class="sec-title">종합 결론</div>
-    <div class="sec-desc">핵심 발견 및 투자 시사점</div></div>
+    <div class="sec-desc">핵심 발견 · 쉬운 예시 · 투자 시사점</div></div>
   </div>
   <div class="sub-sec">
-    <div class="grid-2">
-      <div style="background:#f0fdf4;border-left:4px solid #16a34a;border-radius:6px;padding:16px">
-        <strong style="color:#16a34a">📌 핵심 발견 1: 연속형 변수 설명력 낮음</strong><br><br>
-        R²=0.0244 — X1~X5·X9 6개 변수가 수익률 변동의 <strong>2.4%만 설명</strong>.
-        순자산총액(X1), 평균거래대금(X4)이 상대적으로 유의하나(p&lt;0.01) 설명력은 미미.
-        총보수(X2), 외국인보유비율(X5)은 유의하지 않음.
+
+    <!-- 한 줄 요약 -->
+    <div style="background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:10px;padding:20px 24px;margin-bottom:20px;color:#fff">
+      <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:#94a3b8;margin-bottom:10px;text-transform:uppercase">핵심 한 줄 요약</div>
+      <div style="font-size:16px;font-weight:700;line-height:1.7;color:#e2e8f0">
+        ETF 수익률은 <span style="color:#34d399">얼마나 큰 상품인지, 수수료가 얼마인지</span>보다<br>
+        <span style="color:#60a5fa">어느 나라에 투자하는지, 어느 회사가 운용하는지</span>가 훨씬 더 중요합니다.
       </div>
-      <div style="background:#eff6ff;border-left:4px solid #2563eb;border-radius:6px;padding:16px">
-        <strong style="color:#2563eb">📌 핵심 발견 2: 투자시장이 가장 강한 결정 요인</strong><br><br>
-        X7 투자시장 η²=0.264 — 한국(129.56%) vs 미국(48.72%) vs 중국(46.87%) vs 이머징(39.05%).
-        한국 주식 ETF가 해외 주식 ETF 대비 압도적으로 높은 수익률 달성 (2025~2026년 기준).
-      </div>
-      <div style="background:#fefce8;border-left:4px solid #ca8a04;border-radius:6px;padding:16px">
-        <strong style="color:#ca8a04">📌 핵심 발견 3: 운용사별 수익률 극심한 차이</strong><br><br>
-        X10 운용사 η²=0.315 — 미래에셋(123.17%) vs 삼성(42.4%) vs 한국(26.12%) vs 키움(22.56%).
-        단순 운용사 선택만으로도 수익률이 약 100%p 차이. 미래에셋이 수익률 상위 ETF를 다수 보유.
-      </div>
-      <div style="background:#fdf4ff;border-left:4px solid #9333ea;border-radius:6px;padding:16px">
-        <strong style="color:#9333ea">📌 핵심 발견 4: 복제방법 & 투자전략도 유의</strong><br><br>
-        X8 복제방법 η²=0.131 — 완전복제(127.59%) &gt; 최적화-선물(77.65%) &gt; 최적화-해외(38.51%).
-        X6 투자전략 η²=0.032 — 패시브(멀티에셋)(108.57%) &gt; 패시브(패시브)(98.31%) &gt; 액티브(52.12%).
+      <div style="margin-top:12px;font-size:12px;color:#64748b;line-height:1.6">
+        수치로 보면: 순자산·보수 등 6개 재무지표 → 수익률의 <strong style="color:#f87171">2.4%</strong> 설명 /
+        투자시장·운용사 등 범주형 변수 → 수익률의 <strong style="color:#34d399">최대 31.5%</strong> 설명
       </div>
     </div>
-    <div class="key-finding" style="margin-top:16px">
-      🎯 <strong>종합 시사점:</strong> 주식 ETF 수익률은 순자산·보수 등 재무 특성보다
-      <strong>어느 시장에 투자하는지(투자시장), 어느 운용사가 운용하는지(운용사)</strong>에 의해 훨씬 크게 결정됩니다.
-      투자자 입장에서는 한국 시장 ETF + 미래에셋 운용 + 완전복제 방식의 ETF가
-      분석 기간 동안 유리한 성과를 보였습니다 (단, 과거 성과가 미래를 보장하지 않음).
+
+    <!-- 4개 핵심 발견 -->
+    <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px">
+
+      <div style="border:1px solid #bbf7d0;border-left:5px solid #16a34a;border-radius:8px;padding:18px 20px;background:#f0fdf4">
+        <div style="font-weight:700;color:#15803d;font-size:14px;margin-bottom:10px">📌 발견 1 — 순자산, 보수율, 거래량은 수익률을 거의 설명하지 못합니다</div>
+        <div style="font-size:13px;line-height:1.85;color:#14532d">
+          순자산이 크고, 보수가 낮고, 거래량이 많은 ETF가 당연히 수익률도 좋을 것 같지만 — <strong>이 분석에서는 그렇지 않습니다.</strong><br>
+          이 6가지 숫자 정보를 모두 합쳐도 수익률 차이의 단 <strong>2.4%만 설명</strong>합니다.<br><br>
+          <span style="background:#dcfce7;padding:4px 8px;border-radius:4px;font-size:12px">
+            💡 비유: 식당을 고를 때 "테이블 수가 많고 메뉴 가격이 저렴한 식당"을 기준으로 삼아봤더니,
+            실제로 맛과는 거의 관계가 없었던 것과 같습니다.
+          </span>
+        </div>
+      </div>
+
+      <div style="border:1px solid #bfdbfe;border-left:5px solid #2563eb;border-radius:8px;padding:18px 20px;background:#eff6ff">
+        <div style="font-weight:700;color:#1d4ed8;font-size:14px;margin-bottom:10px">📌 발견 2 — 어느 나라에 투자하는 ETF인지가 수익률의 26%를 결정합니다</div>
+        <div style="font-size:13px;line-height:1.85;color:#1e3a8a">
+          같은 ETF라도 <strong>한국 주식에 투자하느냐, 미국·중국 주식에 투자하느냐</strong>에 따라 수익률이 크게 달랐습니다.<br><br>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px">
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #bfdbfe;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">한국 투자 ETF</div>
+              <div style="font-size:20px;font-weight:800;color:#1d4ed8">+129.6%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #fecaca;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">신흥국 투자 ETF</div>
+              <div style="font-size:20px;font-weight:800;color:#dc2626">+39.1%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #fde68a;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">미국 투자 ETF</div>
+              <div style="font-size:20px;font-weight:800;color:#ca8a04">+48.7%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #fde68a;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">중국 투자 ETF</div>
+              <div style="font-size:20px;font-weight:800;color:#ca8a04">+46.9%</div>
+            </div>
+          </div>
+          <span style="background:#dbeafe;padding:4px 8px;border-radius:4px;font-size:12px">
+            💡 비유: 같은 음식점 체인이라도 서울 강남점이 잘 되고 지방 소도시점이 안 된다면, 음식 맛보다 <strong>입지(위치)</strong>가 더 중요한 것처럼 — ETF도 <strong>투자 지역 선택</strong>이 핵심입니다.
+          </span>
+        </div>
+      </div>
+
+      <div style="border:1px solid #fed7aa;border-left:5px solid #ea580c;border-radius:8px;padding:18px 20px;background:#fff7ed">
+        <div style="font-weight:700;color:#c2410c;font-size:14px;margin-bottom:10px">📌 발견 3 — 어느 운용사 ETF인지가 수익률의 31.5%를 결정합니다 (가장 강한 요인)</div>
+        <div style="font-size:13px;line-height:1.85;color:#7c2d12">
+          10개 변수 중 <strong>운용사(X10)가 수익률 차이를 가장 많이 설명</strong>하는 요인으로 나타났습니다.<br>
+          운용사 선택만으로 수익률이 약 100%p 이상 차이가 납니다.<br><br>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px">
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #fed7aa;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">미래에셋자산운용</div>
+              <div style="font-size:20px;font-weight:800;color:#ea580c">+123.2%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #e2e8f0;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">삼성자산운용</div>
+              <div style="font-size:20px;font-weight:800;color:#475569">+42.4%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #e2e8f0;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">한국투자신탁운용</div>
+              <div style="font-size:20px;font-weight:800;color:#475569">+26.1%</div>
+            </div>
+            <div style="background:#fff;border-radius:6px;padding:10px 12px;border:1px solid #e2e8f0;text-align:center">
+              <div style="color:#64748b;margin-bottom:4px">키움투자자산운용</div>
+              <div style="font-size:20px;font-weight:800;color:#475569">+22.6%</div>
+            </div>
+          </div>
+          <span style="background:#ffedd5;padding:4px 8px;border-radius:4px;font-size:12px">
+            💡 이유: 미래에셋은 한국 시장에 집중 투자하는 ETF를 많이 운용해서, 2025~2026년 한국 시장 강세의 혜택을 가장 많이 받았습니다. 운용사 자체의 실력 차이가 아닐 수 있습니다.
+          </span>
+        </div>
+      </div>
+
+      <div style="border:1px solid #e9d5ff;border-left:5px solid #9333ea;border-radius:8px;padding:18px 20px;background:#fdf4ff">
+        <div style="font-weight:700;color:#7e22ce;font-size:14px;margin-bottom:10px">📌 발견 4 — 운용 방식과 전략도 수익률에 영향을 줍니다</div>
+        <div style="font-size:13px;line-height:1.85;color:#581c87">
+          <strong>복제방법</strong>: 지수 구성 종목을 그대로 따라 사는 <strong>완전복제(127.6%)</strong>가 파생상품·해외주식 간접 보유 방식보다 수익률이 높았습니다.<br>
+          <strong>투자전략</strong>: 시장 지수를 그대로 따르는 <strong>패시브 전략(98~108%)</strong>이 전문가가 종목을 선별하는 <strong>액티브 전략(52%)</strong>보다 약 46%p 더 높았습니다.<br><br>
+          <span style="background:#f3e8ff;padding:4px 8px;border-radius:4px;font-size:12px">
+            💡 비유: 시장 평균을 따라가는 인덱스 펀드가 전문가가 직접 고른 펀드보다 더 좋은 성과를 낸 것은 학계에서도 자주 보고되는 패턴입니다. 이 분석에서도 같은 방향의 결과가 나왔습니다.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 100만 원 투자 시나리오 -->
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:20px">
+      <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:16px">💰 만약 1년 전(2025년 초) 100만 원을 투자했다면?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:13px">
+        <div style="background:#fff;border:2px solid #16a34a;border-radius:8px;padding:16px">
+          <div style="font-weight:700;color:#15803d;margin-bottom:10px;font-size:13px">✅ 최적 조합 시나리오</div>
+          <div style="color:#374151;line-height:2.0;font-size:12.5px">
+            투자시장: <strong>한국</strong><br>
+            운용사: <strong>미래에셋</strong><br>
+            복제방법: <strong>완전복제</strong><br>
+            전략: <strong>패시브</strong>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #dcfce7">
+            <span style="font-size:11px;color:#64748b">100만 원 → 예상 결과</span><br>
+            <span style="font-size:24px;font-weight:800;color:#16a34a">약 230만 원</span><br>
+            <span style="font-size:11px;color:#64748b">(집단 평균 기준 약 +130% 수익)</span>
+          </div>
+        </div>
+        <div style="background:#fff;border:2px solid #dc2626;border-radius:8px;padding:16px">
+          <div style="font-weight:700;color:#b91c1c;margin-bottom:10px;font-size:13px">❌ 불리한 조합 시나리오</div>
+          <div style="color:#374151;line-height:2.0;font-size:12.5px">
+            투자시장: <strong>신흥국(이머징)</strong><br>
+            운용사: <strong>키움</strong><br>
+            복제방법: <strong>최적화(해외직접)</strong><br>
+            전략: <strong>액티브</strong>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #fee2e2">
+            <span style="font-size:11px;color:#64748b">100만 원 → 예상 결과</span><br>
+            <span style="font-size:24px;font-weight:800;color:#dc2626">약 123~139만 원</span><br>
+            <span style="font-size:11px;color:#64748b">(집단 평균 기준 약 +23~39% 수익)</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:12px;color:#64748b;background:#fffbeb;padding:10px 14px;border-radius:6px;border:1px solid #fde68a">
+        ⚠️ 위 수치는 각 집단의 <strong>평균값</strong>이며, 동일 집단 내에서도 개별 ETF 수익률은 큰 편차가 있습니다.
+        또한 <strong>과거 성과가 미래를 보장하지 않습니다.</strong> 한국 시장이 2025~2026년처럼 강세를 계속 유지한다는 보장은 없으며,
+        시장 환경이 바뀌면 순위도 달라집니다.
+      </div>
+    </div>
+
+    <!-- 최종 시사점 -->
+    <div class="key-finding">
+      🎯 <strong>이 분석의 핵심 교훈:</strong><br><br>
+      ETF를 고를 때 보통 "수수료가 낮은 것, 규모가 큰 것"을 우선 찾게 됩니다. 그러나 이 분석 결과는
+      <strong>그런 숫자 정보보다 "어느 시장에 투자하는 ETF인가"가 수익률에 훨씬 더 결정적인 영향을 준다</strong>는 것을 보여줍니다.<br><br>
+      다만 중요한 전제가 있습니다. 이 결론은 2025~2026년 <strong>한국 주식 시장이 유독 강세였던 특수한 시기</strong>의 데이터를 분석한 것입니다.
+      같은 분석을 미국 주식 강세 시기에 했다면 "미국 ETF + 해당 운용사"가 최적 조합이 됐을 것입니다.
+      즉, <strong>어떤 시장이 좋을지를 미리 알기 어렵기 때문에, 시장 분산 투자(글로벌 ETF 등)가 장기적으로 유리할 수 있습니다.</strong>
     </div>
   </div>
 </section>
