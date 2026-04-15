@@ -948,7 +948,7 @@ a{text-decoration:none;color:inherit}
         <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
       </div>
       <div class="var-card-bd">
-        <p class="vc-desc">ETF를 운용하는 방식을 크게 구분한 것입니다. <strong>패시브(Passive) 전략</strong>은 코스피200, S&P500 같은 특정 지수의 구성 종목과 비율을 그대로 따라가는 방식으로, 운용사의 주관적 판단 없이 지수 수익률을 추구합니다. <strong>액티브(Active) 전략</strong>은 전문 펀드매니저가 직접 종목을 선별하고 비중을 조절하며, 시장 평균보다 높은 수익을 목표로 합니다. <strong>멀티에셋(Multi-Asset)</strong>은 주식, 채권, 금 등 여러 종류의 자산에 동시에 분산투자하는 방식입니다.</p>
+        <p class="vc-desc">ETF가 어떤 투자 테마·섹터·스타일을 추구하는지를 나타내는 분류입니다. 크게 세 축으로 나눌 수 있습니다. <strong>시장·규모 분류</strong>: 시장대표(코스피200·S&P500 등 대표지수 추종), 대형주, 중형주처럼 시가총액 규모나 시장 전체를 따라가는 ETF입니다. <strong>산업·섹터 분류</strong>: 정보기술, 금융, 헬스케어, 산업재, 에너지화학, 경기소비재, 생활소비재, 건설, 철강소재, 커뮤니케이션서비스 등 특정 산업군에 집중 투자합니다. <strong>투자 스타일·테마 분류</strong>: 업종테마(특정 산업 트렌드), 전략테마(팩터 전략), 가치/성장(저평가·고성장 종목 선별), 배당(배당 수익 중심), 기업그룹(삼성·LG 등 대기업 계열 묶음), 구조화(복잡한 파생 구조 활용), 혼합/퀀트(수학적 모델 기반) 등이 있습니다.</p>
         <div class="vc-formula">
           <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
           <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
@@ -1074,7 +1074,7 @@ a{text-decoration:none;color:inherit}
               <span class="grp-val">36.82%</span>
             </div></div>
         </div>
-        <div class="vc-interp">💬 <strong>해석:</strong> F = 3.0389, p = 1.7e-05 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.0915로 소효과 크기에 해당하며, 투자전략이 수익률 차이의 약 9.2%를 설명합니다. 패시브(멀티에셋) 108.57% → 패시브(패시브) 98.31% → 액티브(패시브) 52.12% 순으로, <strong>액티브 전략이 패시브 대비 약 46%p 낮은 수익률</strong>을 기록했습니다. 이는 분석 기간 한국 대형주 지수가 강하게 상승하는 장세에서 펀드매니저의 종목 선택이 단순 지수 추종을 따라가지 못했음을 시사합니다. 학계에서도 장기적으로 액티브 펀드의 약 80% 이상이 같은 유형의 패시브 펀드에 성과가 뒤진다는 연구 결과가 있으며, 이번 분석도 같은 방향의 결과를 보입니다.</div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 3.0389, p = 1.7e-05 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.0915로 수익률 차이의 약 9.2%를 설명합니다. <strong>정보기술(150.70%), 대형주(131.74%), 금융(121.14%), 기업그룹(110.40%)</strong> 등 성장주·기술주·대형주 중심 ETF가 수익률 상위권을 차지했습니다. 반면 <strong>구조화(36.82%), 생활소비재(37.51%), 헬스케어(41.50%), 배당(56.24%)</strong> ETF는 하위권에 머물렀습니다. 이는 분석 기간(2025~2026) 한국 성장주·기술주 랠리와 대형주 강세가 집중된 결과입니다. 방어적 섹터(배당, 헬스케어, 소비재)는 상승장에서 성장주에 뒤처지는 일반적 패턴을 그대로 보여줍니다. 단, 시장이 하락 또는 변동성 구간에서는 방어적 섹터 ETF가 더 안정적인 성과를 낼 수 있습니다.</div>
       </div>
     </div><div class="var-card">
       <div class="var-card-hd" style="background:linear-gradient(135deg,#b91c1c,#b91c1cbb)">
@@ -1166,7 +1166,7 @@ a{text-decoration:none;color:inherit}
         <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
       </div>
       <div class="var-card-bd">
-        <p class="vc-desc">ETF가 추종하는 지수를 얼마나 충실히, 어떤 방식으로 따라가는지를 나타냅니다. <strong>완전복제</strong>: 지수에 포함된 모든 종목을 해당 비율 그대로 직접 매수합니다. 가장 정확하지만, 종목 수가 많을 경우 거래 비용이 증가할 수 있습니다. <strong>최적화(선물)</strong>: 해외 지수를 추종할 때 선물 계약을 활용하여 간접적으로 지수 수익률을 추구합니다. 환율 노출을 줄이거나 낮은 비용으로 해외 투자를 가능하게 합니다. <strong>최적화(해외주식 직접보유)</strong>: 지수 구성 종목 중 일부 대표 종목만 선별해 보유하면서 전체 지수의 성과를 근사하는 방식입니다.</p>
+        <p class="vc-desc">ETF가 지수 수익률을 어떤 방식으로 구현하는지를 두 가지 축으로 분류합니다. <strong>첫 번째 축 — 실물 vs 합성</strong>: <strong>실물(Physical)</strong>은 지수 구성 종목의 주식을 직접 매수·보유하는 방식입니다. 내가 투자한 돈이 실제 주식으로 운용되므로 직관적이고 투명합니다. <strong>합성(Synthetic)</strong>은 주식을 직접 보유하지 않고, 증권사와 스왑(Swap) 계약을 맺어 지수 수익률을 간접 복제합니다. 해외 지수를 낮은 비용으로 추종할 수 있지만, 계약 상대방의 신용위험이 발생할 수 있습니다. <strong>두 번째 축 — 패시브 vs 액티브</strong>: <strong>패시브</strong>는 지수를 그대로 추종하며 운용사 개입을 최소화합니다. <strong>액티브</strong>는 펀드매니저가 일부 종목을 선별하거나 비중을 조정하여 지수 초과 수익을 목표로 합니다.</p>
         <div class="vc-formula">
           <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
           <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
@@ -1224,7 +1224,7 @@ a{text-decoration:none;color:inherit}
               <span class="grp-val">52.12%</span>
             </div></div>
         </div>
-        <div class="vc-interp">💬 <strong>해석:</strong> F = 9.7973, p ≈ 0 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.0318로 <strong>대효과</strong>에 해당하며, 복제방법이 수익률 차이의 약 3.2%를 설명합니다. 완전복제(127.59%) → 최적화-선물(77.65%) → 최적화-해외직접보유(38.51%) 순입니다. 이 차이는 복제방법 자체의 우열이 아닌, <strong>복제방법과 투자시장의 연관성</strong>에서 비롯됩니다. 완전복제 ETF는 대부분 한국 국내 주식을 직접 매수하는 방식을 사용하며, 최적화-해외 ETF는 주로 미국·중국 등 해외 주식을 추종합니다. 즉, 분석 기간 한국 시장 강세 → 완전복제 ETF 수익률 우세라는 구조입니다. 복제방법 자체보다는 해당 방식을 사용하는 ETF들이 어느 시장에 투자하는지가 더 결정적 요인입니다.</div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 9.7973, p = 6.5e-05 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.0318로 수익률 차이의 약 3.2%를 설명합니다(소효과). <strong>실물(액티브) 108.57% → 실물(패시브) 98.31% → 합성(패시브) 52.12%</strong> 순입니다. 핵심은 <strong>실물 vs 합성의 격차(약 46~56%p)</strong>입니다. 합성 ETF는 주로 미국·중국·신흥국 해외 지수를 저비용으로 추종하기 위해 설계된 상품들이며, 분석 기간 해외 시장이 한국 대비 크게 부진했던 결과가 반영된 것입니다. 반면 실물 ETF는 한국 국내 주식을 직접 보유하는 상품이 대부분이어서 한국 시장 강세의 수혜를 받았습니다. 즉, <strong>복제 방식 자체의 우열이 아니라 어느 시장에 투자하느냐</strong>가 이 차이를 만든 핵심 원인입니다.</div>
       </div>
     </div><div class="var-card">
       <div class="var-card-hd" style="background:linear-gradient(135deg,#ea580c,#ea580cbb)">
