@@ -174,17 +174,17 @@ a{text-decoration:none;color:inherit}
     <table class="stbl">
       <thead><tr><th>변수</th><th>명칭</th><th>설명</th><th>유형</th></tr></thead>
       <tbody>
-        <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>1년 수익률 (%)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF 순자산총액 (원)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X2</strong></td><td>총보수</td><td>연간 총보수 (%)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X3</strong></td><td>존속기간</td><td>ETF 상장 후 경과 연수</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X4</strong></td><td>평균거래대금_1Y</td><td>1년 평균 일별 거래대금 (백만원)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X5</strong></td><td>외국인보유비율</td><td>외국인 보유 비중 (%)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X6</strong></td><td>투자전략</td><td>패시브/액티브 × 패시브/멀티에셋</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X7</strong></td><td>투자시장</td><td>투자 대상 국가/시장</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X8</strong></td><td>복제방법</td><td>완전복제 / 최적화 방식</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X9</strong></td><td>변동성</td><td>수익률 변동성 (일별)</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X10</strong></td><td>운용사</td><td>ETF 운용사</td><td><span class="badge b-orange">범주형</span></td></tr>
+        <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률. 예) 50%이면 1년 전보다 가격이 50% 상승</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF에 투자된 전체 자금의 합계(원). 클수록 많은 투자자가 참여한 대형 상품으로 안정성이 상대적으로 높음</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X2</strong></td><td>총보수</td><td>ETF를 보유하는 동안 매년 부과되는 운용 수수료(%). 낮을수록 투자자의 실질 수익에 유리</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X3</strong></td><td>존속기간</td><td>ETF가 처음 상장된 날부터 현재까지 운용된 기간(년). 길수록 시장 환경 변화를 여러 차례 경험한 검증된 상품</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X4</strong></td><td>평균거래대금_1Y</td><td>하루 평균 얼마나 많은 금액이 거래되는지를 나타내는 수치(백만원). 높을수록 원하는 가격에 쉽게 사고팔 수 있음</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X5</strong></td><td>외국인보유비율</td><td>전체 ETF 발행 주식 중 외국인이 보유한 비중(%). 외국 기관·투자자의 관심도와 신뢰도를 간접적으로 반영</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X6</strong></td><td>투자전략</td><td>ETF의 운용 방식. '패시브'는 특정 지수를 그대로 따라가는 방식이고, '액티브'는 펀드매니저가 직접 종목을 선별해 운용하는 방식</td><td><span class="badge b-orange">범주형</span></td></tr>
+        <tr><td><strong>X7</strong></td><td>투자시장</td><td>ETF가 실제로 투자하는 국가 또는 지역(예: 한국, 미국, 중국, 글로벌 등). 어느 시장에 투자하느냐가 수익률에 직접적인 영향을 줌</td><td><span class="badge b-orange">범주형</span></td></tr>
+        <tr><td><strong>X8</strong></td><td>복제방법</td><td>지수를 따라가는 구체적인 방법. '완전복제'는 지수 구성 종목을 모두 직접 매수하고, '최적화'는 비용 절감을 위해 일부 종목만 선별해 매수</td><td><span class="badge b-orange">범주형</span></td></tr>
+        <tr><td><strong>X9</strong></td><td>변동성</td><td>ETF 가격이 매일 얼마나 크게 오르내리는지를 나타내는 수치. 높을수록 수익률 기복이 심하고 투자 위험이 상대적으로 큼</td><td><span class="badge b-blue">연속형</span></td></tr>
+        <tr><td><strong>X10</strong></td><td>운용사</td><td>ETF를 실제로 운용·관리하는 자산운용회사(예: 미래에셋, 삼성, 한국투자 등). 운용사의 역량과 보유 ETF 라인업에 따라 수익률 차이가 발생할 수 있음</td><td><span class="badge b-orange">범주형</span></td></tr>
       </tbody>
     </table>
     </div>
@@ -221,7 +221,7 @@ a{text-decoration:none;color:inherit}
     <h3 class="sub-title">2. 빈도 히스토그램 & 상자 수염 그림</h3>
     <div class="chart-box">
       <h4>Y1 수익률_1Y 분포 (n=600)</h4>
-      <canvas id="hist_y1" height="120" class="chart-c"></canvas>
+      <canvas id="hist_y1" height="180" class="chart-c"></canvas>
       <div id="box_y1" class="bp-wrap"><div style="font-size:11px;color:#64748b;margin-bottom:2px">수익률_1Y 분포 (상자 수염 그림)</div></div>
     </div>
   </div>
@@ -270,8 +270,11 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-corr">
   <h3 class="sub-title">2. 연속형 변수 상관분석 (피어슨 r)</h3>
-  <div class="guide-tip">💡 r이 +1에 가까울수록 강한 양의 상관, -1에 가까울수록 강한 음의 상관.
-  *** p&lt;0.001 ** p&lt;0.01 * p&lt;0.05 ns = 유의하지 않음</div>
+  <div class="guide-tip">💡 <strong>피어슨 상관계수(r)</strong>는 두 변수가 함께 움직이는 정도를 -1 ~ +1 사이 값으로 나타냅니다.
+  r이 +1에 가까울수록 한 값이 오를 때 다른 값도 같이 오르고, -1에 가까울수록 반대로 움직입니다.
+  0에 가까우면 두 변수 사이에 선형 관계가 거의 없다는 의미입니다.
+  <strong>R²</strong>(결정계수)는 해당 변수 하나만으로 수익률 변동을 몇 % 설명할 수 있는지를 나타냅니다.
+  유의성: *** p&lt;0.001 &nbsp;** p&lt;0.01 &nbsp;* p&lt;0.05 &nbsp;ns = 통계적으로 유의하지 않음</div>
   <div class="table-wrap">
   <table class="stbl">
     <thead><tr><th>변수</th><th>r (피어슨)</th><th>방향</th><th>R²</th><th>p값</th><th>유의성</th><th>n</th></tr></thead>
@@ -345,7 +348,11 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-mreg">
   <h3 class="sub-title">3. 다중회귀분석 (연속형 변수)</h3>
-  <div class="guide-tip">💡 Y1 = β0 + β1·X1 + β2·X2 + ... + β6·X9. 연속형 변수 X1~X5, X9 투입.</div>
+  <div class="guide-tip">💡 <strong>다중회귀분석</strong>은 여러 변수를 동시에 고려해 수익률에 미치는 영향을 분석하는 방법입니다.
+  수식: Y1 = β0 + β1·X1 + β2·X2 + β3·X3 + β4·X4 + β5·X5 + β6·X9
+  <strong>R²</strong>: 모형이 수익률 변동을 설명하는 비율. 1에 가까울수록 설명력이 높습니다.
+  <strong>F 통계량</strong>: 전체 모형이 통계적으로 의미 있는지 검정하는 값. p&lt;0.05이면 유의합니다.
+  <strong>회귀계수(β)</strong>: 다른 변수가 동일할 때, 해당 변수가 1단위 증가하면 수익률이 β만큼 변한다는 의미입니다.</div>
   <div class="grid-2" style="gap:16px;margin-bottom:16px">
     <div class="stat-card">
       <div class="sc-label">모형 R²</div>
@@ -393,7 +400,10 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-anova-X6">
   <h3 class="sub-title">1. 투자전략(X6) — 일원배치 ANOVA</h3>
-  <div class="guide-tip">💡 집단별 Y1(수익률_1Y) 평균이 동일한지 검정. η²: 효과 크기 (0.01=소, 0.06=중, 0.14=대).</div>
+  <div class="guide-tip">💡 <strong>일원배치 ANOVA</strong>는 여러 집단의 평균 수익률이 서로 다른지를 통계적으로 검정하는 방법입니다.
+  <strong>F 통계량</strong>이 클수록, <strong>p값</strong>이 0.05 미만일수록 집단 간 차이가 통계적으로 유의합니다.
+  <strong>η²(에타 제곱)</strong>는 해당 변수가 수익률 차이를 얼마나 설명하는지를 나타내며, 0.01=작은 효과, 0.06=중간 효과, 0.14 이상=큰 효과로 해석합니다.
+  <strong>사후검정(Bonferroni)</strong>은 어느 집단끼리 차이가 유의한지를 쌍별로 비교합니다.</div>
   <div class="anova-summary">
     <span class="anova-f">F = 9.7973</span>
     <span class="anova-result">p = 6.5e-05</span>
@@ -447,7 +457,10 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-anova-X7">
   <h3 class="sub-title">2. 투자시장(X7) — 일원배치 ANOVA</h3>
-  <div class="guide-tip">💡 집단별 Y1(수익률_1Y) 평균이 동일한지 검정. η²: 효과 크기 (0.01=소, 0.06=중, 0.14=대).</div>
+  <div class="guide-tip">💡 <strong>일원배치 ANOVA</strong>는 여러 집단의 평균 수익률이 서로 다른지를 통계적으로 검정하는 방법입니다.
+  <strong>F 통계량</strong>이 클수록, <strong>p값</strong>이 0.05 미만일수록 집단 간 차이가 통계적으로 유의합니다.
+  <strong>η²(에타 제곱)</strong>는 해당 변수가 수익률 차이를 얼마나 설명하는지를 나타내며, 0.01=작은 효과, 0.06=중간 효과, 0.14 이상=큰 효과로 해석합니다.
+  <strong>사후검정(Bonferroni)</strong>은 어느 집단끼리 차이가 유의한지를 쌍별로 비교합니다.</div>
   <div class="anova-summary">
     <span class="anova-f">F = 35.4891</span>
     <span class="anova-result">p = 0.0</span>
@@ -619,7 +632,10 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-anova-X8">
   <h3 class="sub-title">3. 복제방법(X8) — 일원배치 ANOVA</h3>
-  <div class="guide-tip">💡 집단별 Y1(수익률_1Y) 평균이 동일한지 검정. η²: 효과 크기 (0.01=소, 0.06=중, 0.14=대).</div>
+  <div class="guide-tip">💡 <strong>일원배치 ANOVA</strong>는 여러 집단의 평균 수익률이 서로 다른지를 통계적으로 검정하는 방법입니다.
+  <strong>F 통계량</strong>이 클수록, <strong>p값</strong>이 0.05 미만일수록 집단 간 차이가 통계적으로 유의합니다.
+  <strong>η²(에타 제곱)</strong>는 해당 변수가 수익률 차이를 얼마나 설명하는지를 나타내며, 0.01=작은 효과, 0.06=중간 효과, 0.14 이상=큰 효과로 해석합니다.
+  <strong>사후검정(Bonferroni)</strong>은 어느 집단끼리 차이가 유의한지를 쌍별로 비교합니다.</div>
   <div class="anova-summary">
     <span class="anova-f">F = 45.0788</span>
     <span class="anova-result">p = 0.0</span>
@@ -673,7 +689,10 @@ a{text-decoration:none;color:inherit}
   
 <div class="sub-sec" id="sec-anova-X10">
   <h3 class="sub-title">4. 운용사(X10) — 일원배치 ANOVA</h3>
-  <div class="guide-tip">💡 집단별 Y1(수익률_1Y) 평균이 동일한지 검정. η²: 효과 크기 (0.01=소, 0.06=중, 0.14=대).</div>
+  <div class="guide-tip">💡 <strong>일원배치 ANOVA</strong>는 여러 집단의 평균 수익률이 서로 다른지를 통계적으로 검정하는 방법입니다.
+  <strong>F 통계량</strong>이 클수록, <strong>p값</strong>이 0.05 미만일수록 집단 간 차이가 통계적으로 유의합니다.
+  <strong>η²(에타 제곱)</strong>는 해당 변수가 수익률 차이를 얼마나 설명하는지를 나타내며, 0.01=작은 효과, 0.06=중간 효과, 0.14 이상=큰 효과로 해석합니다.
+  <strong>사후검정(Bonferroni)</strong>은 어느 집단끼리 차이가 유의한지를 쌍별로 비교합니다.</div>
   <div class="anova-summary">
     <span class="anova-f">F = 91.0384</span>
     <span class="anova-result">p = 0.0</span>
