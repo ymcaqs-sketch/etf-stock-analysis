@@ -5,130 +5,346 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>주식 ETF 종합 분석 보고서</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sidebar-w:240px; --header-h:56px;
-  --bg:#f1f5f9; --card:#fff; --text:#1e293b;
-  --muted:#64748b; --border:#e2e8f0; --blue:#3b82f6;
+  --sidebar-w: 240px;
+  --header-h: 56px;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-sub: #475569;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --blue: #3b82f6;
+  --blue-d: #2563eb;
+  --blue-l: #dbeafe;
+  --green: #16a34a;
+  --green-l: #dcfce7;
+  --orange: #ea580c;
+  --orange-l: #ffedd5;
+  --red: #dc2626;
+  --red-l: #fee2e2;
+  --yellow: #ca8a04;
+  --yellow-l: #fef9c3;
+  --purple: #7c3aed;
+  --purple-l: #ede9fe;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,.10);
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);font-size:14px}
+body{
+  font-family:'Noto Sans KR','Malgun Gothic',sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:14px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
 a{text-decoration:none;color:inherit}
-.top-header{position:fixed;top:0;left:0;right:0;height:var(--header-h);
-  background:#1e293b;color:#fff;display:flex;align-items:center;
-  padding:0 16px;gap:12px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.menu-btn{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px;border-radius:4px}
-.header-title{font-size:16px;font-weight:700;flex:1}
-.header-sub{font-size:12px;color:#94a3b8}
+
+/* ── 스크롤바 ── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+/* ── 헤더 ── */
+.top-header{
+  position:fixed;top:0;left:0;right:0;height:var(--header-h);
+  background:#0f172a;color:#fff;display:flex;align-items:center;
+  padding:0 20px;gap:14px;z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.menu-btn{
+  background:none;border:none;color:#94a3b8;font-size:20px;
+  cursor:pointer;padding:4px 8px;border-radius:var(--r-sm);
+  transition:color .15s;
+}
+.menu-btn:hover{color:#fff}
+.header-title{font-size:15px;font-weight:700;flex:1;letter-spacing:-.02em}
+.header-sub{font-size:11px;color:#64748b;white-space:nowrap}
+
+/* ── 레이아웃 ── */
 .app-layout{display:flex;margin-top:var(--header-h);min-height:calc(100vh - var(--header-h))}
-.sidebar{width:var(--sidebar-w);min-height:100%;position:sticky;top:var(--header-h);
-  background:#1e293b;color:#cbd5e1;padding:16px 0;overflow-y:auto;
-  height:calc(100vh - var(--header-h));flex-shrink:0;z-index:50;transition:transform .3s}
-.nav-section{margin-bottom:8px}
-.nav-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
-  color:#475569;padding:8px 16px 4px}
-.nav-link{display:block;padding:7px 16px;font-size:13px;color:#94a3b8;
-  border-left:3px solid transparent;transition:all .2s}
-.nav-link:hover,.nav-link.active{color:#fff;border-left-color:var(--blue);background:rgba(255,255,255,.05)}
-.main-content{flex:1;padding:24px;max-width:1100px;min-width:0}
-.cat-section{background:var(--card);border-radius:12px;padding:24px;
-  margin-bottom:24px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.sec-header{display:flex;align-items:center;gap:16px;padding:16px;
-  background:linear-gradient(135deg,#1e293b 0%,#334e68 100%);
-  border-radius:8px;margin-bottom:20px;color:#fff}
-.sec-icon{font-size:32px}
-.sec-title{font-size:20px;font-weight:700;margin-bottom:4px}
-.sec-desc{font-size:13px;color:#94a3b8}
-.sub-sec{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.sub-sec:last-child{border-bottom:none}
-.sub-title{font-size:15px;font-weight:700;margin-bottom:12px;color:#1e293b}
-.guide-tip{background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;
-  padding:10px 14px;margin-bottom:12px;font-size:12.5px;line-height:1.6}
-.key-finding{background:#eff6ff;border-left:4px solid var(--blue);border-radius:4px;
-  padding:12px 16px;margin-top:12px;font-size:13px;line-height:1.7}
-.table-wrap{overflow-x:auto;margin:12px 0}
+.sidebar{
+  width:var(--sidebar-w);position:sticky;top:var(--header-h);
+  background:#0f172a;color:#cbd5e1;padding:20px 0;
+  height:calc(100vh - var(--header-h));flex-shrink:0;
+  overflow-y:auto;z-index:50;transition:transform .25s ease;
+}
+.nav-section{margin-bottom:4px}
+.nav-title{
+  font-size:10px;font-weight:600;text-transform:uppercase;
+  letter-spacing:1.2px;color:#334155;padding:10px 18px 5px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 18px;font-size:13px;font-weight:400;
+  color:#94a3b8;border-left:3px solid transparent;
+  transition:all .18s ease;
+}
+.nav-link:hover{color:#e2e8f0;background:rgba(255,255,255,.04);border-left-color:#475569}
+.nav-link.active{color:#fff;border-left-color:var(--blue);background:rgba(59,130,246,.1);font-weight:600}
+
+/* ── 메인 콘텐츠 ── */
+.main-content{flex:1;padding:28px 24px;max-width:1100px;min-width:0}
+.cat-section{
+  background:var(--card);border-radius:var(--r-lg);
+  padding:28px;margin-bottom:28px;
+  box-shadow:var(--shadow-sm);
+  border:1px solid rgba(226,232,240,.6);
+}
+
+/* ── 섹션 헤더 ── */
+.sec-header{
+  display:flex;align-items:center;gap:16px;
+  padding:18px 20px;border-radius:var(--r-md);
+  margin-bottom:24px;color:#fff;
+  background:linear-gradient(135deg,#1e293b 0%,#334155 100%);
+}
+.sec-header.sh-blue{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 100%)}
+.sec-header.sh-indigo{background:linear-gradient(135deg,#3730a3 0%,#4f46e5 100%)}
+.sec-header.sh-purple{background:linear-gradient(135deg,#6d28d9 0%,#7c3aed 100%)}
+.sec-header.sh-green{background:linear-gradient(135deg,#14532d 0%,#16a34a 100%)}
+.sec-header.sh-slate{background:linear-gradient(135deg,#1e293b 0%,#475569 100%)}
+.sec-icon{font-size:30px;flex-shrink:0}
+.sec-title{font-size:19px;font-weight:700;margin-bottom:3px;letter-spacing:-.02em}
+.sec-desc{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px}
+
+/* ── 서브 섹션 ── */
+.sub-sec{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.sub-sec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.sub-title{
+  font-size:14px;font-weight:700;margin-bottom:14px;
+  color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.sub-title::before{
+  content:'';display:inline-block;width:3px;height:16px;
+  background:var(--blue);border-radius:2px;flex-shrink:0;
+}
+
+/* ── 가이드 팁 ── */
+.guide-tip{
+  background:#fffdf0;border:1px solid #fde68a;
+  border-left:4px solid #f59e0b;border-radius:var(--r-sm);
+  padding:11px 14px;margin-bottom:14px;
+  font-size:12px;line-height:1.7;color:#78350f;
+}
+.guide-tip strong{color:#92400e}
+
+/* ── 핵심 발견 ── */
+.key-finding{
+  background:var(--blue-l);border-left:4px solid var(--blue);
+  border-radius:var(--r-sm);padding:13px 16px;
+  margin-top:14px;font-size:13px;line-height:1.75;color:#1e3a8a;
+}
+
+/* ── 테이블 ── */
+.table-wrap{overflow-x:auto;margin:12px 0;border-radius:var(--r-sm);border:1px solid var(--border)}
 .stbl{width:100%;border-collapse:collapse;font-size:13px}
-.stbl th{background:#f8fafc;padding:8px 10px;text-align:center;border:1px solid var(--border);
-  font-weight:600;font-size:12px;white-space:nowrap}
-.stbl td{padding:7px 10px;text-align:center;border:1px solid var(--border)}
+.stbl th{
+  background:#f8fafc;padding:9px 12px;
+  text-align:center;border-bottom:2px solid var(--border);
+  border-right:1px solid var(--border);
+  font-weight:600;font-size:12px;white-space:nowrap;
+  color:var(--text-sub);
+}
+.stbl th:last-child{border-right:none}
+.stbl td{
+  padding:8px 12px;text-align:center;
+  border-bottom:1px solid var(--border);
+  border-right:1px solid var(--border);
+  vertical-align:middle;
+}
+.stbl td:last-child{border-right:none}
+.stbl tbody tr:last-child td{border-bottom:none}
 .stbl tbody tr:nth-child(even){background:#f8fafc}
-.pos{color:#3b82f6;font-weight:600}
-.neg{color:#ef4444;font-weight:600}
-.badge{display:inline-block;padding:1px 6px;border-radius:10px;font-size:11px;font-weight:600;margin-left:4px}
-.b-red{background:#fee2e2;color:#dc2626}
-.b-orange{background:#ffedd5;color:#ea580c}
-.b-yellow{background:#fef9c3;color:#ca8a04}
-.b-gray{background:#f1f5f9;color:#64748b}
-.b-blue{background:#dbeafe;color:#2563eb}
-.b-green{background:#dcfce7;color:#16a34a}
-.sig-yes{color:#16a34a;font-weight:700}
-.sig-no{color:#dc2626;font-weight:700}
-.bar-wrap{background:#f1f5f9;border-radius:4px;height:12px;width:120px;display:inline-block;vertical-align:middle}
-.bar-fill{height:100%;border-radius:4px;min-width:2px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat-card{background:var(--bg);border-radius:8px;padding:14px 16px;border-left:4px solid var(--blue)}
-.sc-label{font-size:11px;color:var(--muted);margin-bottom:4px}
-.sc-val{font-size:22px;font-weight:700;color:var(--blue)}
-.sc-sub{font-size:11px;color:var(--muted);margin-top:4px}
-.chart-c{margin-top:12px;width:100%}
-.chart-box{background:#f8fafc;border-radius:8px;padding:12px}
-.chart-box h4{font-size:13px;margin-bottom:8px;color:var(--muted)}
-.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
-.anova-summary{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  padding:12px;background:#f8fafc;border-radius:8px;margin-bottom:12px}
-.anova-f{font-weight:700;font-size:14px}
-.anova-result{font-size:13px}
-.anova-bars{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
-.anova-bar-row{display:grid;grid-template-columns:200px 1fr;align-items:center;gap:12px}
-.anova-bar-label{font-size:12px;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.anova-bar-label small{color:var(--muted);margin-left:4px}
-.anova-bar-track{background:#e2e8f0;border-radius:4px;height:24px;position:relative;overflow:hidden}
-.anova-bar-fill{background:var(--blue);height:100%;border-radius:4px;transition:width .3s;opacity:.85}
-.anova-bar-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);
-  font-size:11px;font-weight:700;color:#1e293b}
-.bp-wrap{position:relative;background:#f8fafc;border:1px solid var(--border);
-  border-radius:8px;padding:10px 12px 4px;margin-top:8px}
+.stbl tbody tr:hover td{background:#f0f7ff}
+.stbl td.td-left{text-align:left}
+
+/* ── 배지 ── */
+.pos{color:var(--blue-d);font-weight:600}
+.neg{color:var(--red);font-weight:600}
+.badge{
+  display:inline-block;padding:2px 8px;border-radius:20px;
+  font-size:11px;font-weight:600;letter-spacing:.01em;
+}
+.b-red{background:var(--red-l);color:var(--red)}
+.b-orange{background:var(--orange-l);color:var(--orange)}
+.b-yellow{background:var(--yellow-l);color:var(--yellow)}
+.b-gray{background:#f1f5f9;color:var(--muted)}
+.b-blue{background:var(--blue-l);color:var(--blue-d)}
+.b-green{background:var(--green-l);color:var(--green)}
+.b-purple{background:var(--purple-l);color:var(--purple)}
+.sig-yes{color:var(--green);font-weight:700}
+.sig-no{color:var(--red);font-weight:700}
+
+/* ── 인라인 바 ── */
+.bar-wrap{
+  background:#e2e8f0;border-radius:4px;height:10px;
+  width:100px;display:inline-block;vertical-align:middle;
+  overflow:hidden;
+}
+.bar-fill{height:100%;border-radius:4px;min-width:2px;transition:width .3s}
+
+/* ── 그리드 & 스탯 카드 ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.stat-card{
+  background:var(--bg);border-radius:var(--r-md);
+  padding:16px 18px;border-left:4px solid var(--blue);
+  transition:box-shadow .2s;
+}
+.stat-card:hover{box-shadow:var(--shadow-md)}
+.stat-card.sc-green{border-left-color:var(--green)}
+.stat-card.sc-orange{border-left-color:var(--orange)}
+.stat-card.sc-purple{border-left-color:var(--purple)}
+.sc-label{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:5px;letter-spacing:.02em}
+.sc-val{font-size:24px;font-weight:700;color:var(--blue);line-height:1.2}
+.stat-card.sc-green .sc-val{color:var(--green)}
+.stat-card.sc-orange .sc-val{color:var(--orange)}
+.stat-card.sc-purple .sc-val{color:var(--purple)}
+.sc-sub{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* ── 차트 ── */
+.chart-c{margin-top:8px;width:100%}
+.chart-box{
+  background:#f8fafc;border-radius:var(--r-md);
+  padding:16px;border:1px solid var(--border);
+}
+.chart-box h4{
+  font-size:12px;font-weight:600;margin-bottom:10px;
+  color:var(--muted);letter-spacing:.02em;
+}
+
+/* ── ANOVA ── */
+.anova-summary{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:13px 16px;background:#f8fafc;
+  border-radius:var(--r-md);border:1px solid var(--border);
+  margin-bottom:14px;
+}
+.anova-f{font-weight:700;font-size:14px;color:var(--text)}
+.anova-result{font-size:13px;color:var(--text-sub)}
+.anova-bars{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.anova-bar-row{display:grid;grid-template-columns:clamp(120px,22%,220px) 1fr;align-items:center;gap:12px}
+.anova-bar-label{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.anova-bar-label small{font-size:11px;color:var(--muted);font-weight:400;margin-left:4px}
+.anova-bar-track{background:#e2e8f0;border-radius:6px;height:30px;position:relative;overflow:hidden}
+.anova-bar-fill{
+  background:linear-gradient(90deg,var(--blue) 0%,#60a5fa 100%);
+  height:100%;border-radius:6px;transition:width .4s ease;
+}
+.anova-bar-val{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-size:12px;font-weight:700;color:#1e293b;
+}
+
+/* ── 박스플롯 ── */
+.bp-wrap{
+  position:relative;background:#f8fafc;
+  border:1px solid var(--border);border-radius:var(--r-md);
+  padding:12px 14px 6px;margin-top:10px;
+}
 .bp-wrap svg{display:block;overflow:visible;width:100%}
-.bp-tooltip{position:fixed;background:#1e293b;color:#fff;padding:8px 12px;border-radius:8px;
-  font-size:12px;line-height:1.8;pointer-events:none;z-index:9999;
-  box-shadow:0 4px 12px rgba(0,0,0,.3);display:none}
-.raw-wrap{margin-top:1.5rem;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.raw-header{padding:.85rem 1.2rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;background:#3b82f6;color:#fff}
-.raw-header-left{display:flex;align-items:center;gap:.6rem}
-.raw-title{font-weight:700;font-size:.95rem}
-.raw-count-badge{background:rgba(255,255,255,.2);padding:2px 8px;border-radius:20px;font-size:.78rem;font-weight:600}
-.raw-toggle-btn{border:none;padding:5px 14px;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;background:rgba(255,255,255,.2);color:#fff}
-.raw-toolbar{padding:.6rem 1rem;background:#f8fafc;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.raw-search{border:1.5px solid #cbd5e1;border-radius:8px;padding:6px 12px;font-size:.86rem;width:240px;outline:none}
-.raw-search:focus{border-color:var(--blue)}
-.raw-visible-count{font-size:.8rem;color:#94a3b8}
-.raw-dl-btn{border:none;padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;color:#fff;background:var(--blue);margin-left:auto}
+.bp-tooltip{
+  position:fixed;background:#0f172a;color:#e2e8f0;
+  padding:10px 14px;border-radius:var(--r-md);
+  font-size:12px;line-height:1.9;pointer-events:none;
+  z-index:9999;box-shadow:var(--shadow-lg);display:none;
+  border:1px solid #334155;
+}
+
+/* ── 로우 데이터 ── */
+.raw-wrap{
+  margin-top:8px;border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.raw-header{
+  padding:14px 18px;display:flex;align-items:center;
+  justify-content:space-between;cursor:pointer;
+  user-select:none;
+  background:linear-gradient(135deg,#1e293b 0%,#334155 100%);color:#fff;
+}
+.raw-header-left{display:flex;align-items:center;gap:10px}
+.raw-title{font-weight:700;font-size:14px}
+.raw-count-badge{
+  background:rgba(255,255,255,.15);padding:2px 10px;
+  border-radius:20px;font-size:11px;font-weight:600;
+}
+.raw-toggle-btn{
+  border:1px solid rgba(255,255,255,.25);padding:5px 14px;
+  border-radius:var(--r-sm);cursor:pointer;font-size:12px;
+  font-weight:600;background:rgba(255,255,255,.1);
+  color:#fff;transition:background .15s;
+}
+.raw-toggle-btn:hover{background:rgba(255,255,255,.2)}
+.raw-toolbar{
+  padding:10px 14px;background:#f8fafc;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.raw-search{
+  border:1.5px solid var(--border-strong);border-radius:var(--r-sm);
+  padding:7px 12px;font-size:13px;width:240px;
+  outline:none;font-family:inherit;transition:border-color .15s;
+}
+.raw-search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.raw-visible-count{font-size:12px;color:var(--muted)}
+.raw-dl-btn{
+  border:none;padding:7px 16px;border-radius:var(--r-sm);
+  cursor:pointer;font-size:12px;font-weight:600;
+  color:#fff;background:var(--blue);
+  margin-left:auto;transition:background .15s;font-family:inherit;
+}
+.raw-dl-btn:hover{background:var(--blue-d)}
 .raw-table-wrap{overflow-x:auto;max-height:520px;overflow-y:auto}
-.raw-table-wrap table{width:100%;border-collapse:collapse;font-size:.82rem}
-.raw-table-wrap thead th{position:sticky;top:0;padding:8px 10px;font-weight:700;font-size:.79rem;
-  text-align:center;white-space:nowrap;background:#1e293b;color:#fff;border-bottom:2px solid #334e68}
+.raw-table-wrap table{width:100%;border-collapse:collapse;font-size:12px}
+.raw-table-wrap thead th{
+  position:sticky;top:0;padding:9px 12px;font-weight:600;font-size:11px;
+  text-align:center;white-space:nowrap;
+  background:#1e293b;color:#e2e8f0;
+  border-right:1px solid #334155;
+}
+.raw-table-wrap thead th:last-child{border-right:none}
 .raw-table-wrap tbody tr{border-bottom:1px solid #f1f5f9}
 .raw-table-wrap tbody tr:nth-child(even){background:#f8fafc}
-.raw-table-wrap tbody tr:hover td{background:rgba(59,130,246,.06)!important}
-.raw-table-wrap td{padding:6px 10px;vertical-align:middle;white-space:nowrap}
+.raw-table-wrap tbody tr:hover td{background:rgba(59,130,246,.05)!important}
+.raw-table-wrap td{padding:7px 12px;vertical-align:middle;white-space:nowrap;color:var(--text)}
+
+/* ── 반응형 ── */
 @media(max-width:768px){
-  .sidebar{position:fixed;left:0;top:var(--header-h);transform:translateX(-100%);height:calc(100vh - var(--header-h))}
-  .sidebar.open{transform:translateX(0)}
-  .main-content{padding:10px}
-  .cat-section{padding:14px 12px;margin-bottom:14px}
+  .sidebar{
+    position:fixed;left:0;top:var(--header-h);
+    transform:translateX(-100%);
+    height:calc(100vh - var(--header-h));
+  }
+  .sidebar.open{transform:translateX(0);box-shadow:var(--shadow-lg)}
+  .main-content{padding:12px 10px}
+  .cat-section{padding:16px 14px;margin-bottom:16px}
   .sec-title{font-size:16px}
+  .sec-desc{font-size:11px}
   .grid-2,.grid-4,.charts-row{grid-template-columns:1fr}
+  .anova-bar-row{grid-template-columns:1fr}
+  .anova-bar-label{white-space:normal}
   .raw-search{width:100%}
   .raw-dl-btn{margin-left:0;width:100%;text-align:center}
-  .anova-bar-row{grid-template-columns:140px 1fr}
 }
 @media(min-width:769px){.menu-btn{display:none}}
+/* ── 변수 정의 테이블 좌정렬 ── */
+.var-tbl td:nth-child(3),
+.var-tbl td:nth-child(5){text-align:left;line-height:1.6}
+/* ── 기술통계 테이블 번갈아 색상 강조 ── */
+.stbl .row-y{background:#eff6ff!important;font-weight:600}
 </style>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <header class="top-header">
@@ -152,7 +368,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ① 개요 -->
 <section class="cat-section" id="sec-overview">
-  <div class="sec-header">
+  <div class="sec-header sh-slate">
     <span class="sec-icon">📊</span>
     <div><div class="sec-title">개요</div>
     <div class="sec-desc">분석 목적 · 변수 정의 · 전체 요약 통계</div></div>
@@ -161,10 +377,10 @@ a{text-decoration:none;color:inherit}
   <div class="sub-sec">
     <h3 class="sub-title">1. 분석 개요</h3>
     <div class="grid-4">
-      <div class="stat-card"><div class="sc-label">분석 대상</div><div class="sc-val">600<span style="font-size:14px;font-weight:400">개</span></div><div class="sc-sub">주식 ETF (레버리지·인버스 제외)</div></div>
-      <div class="stat-card"><div class="sc-label">평균 수익률</div><div class="sc-val">96.59<span style="font-size:14px">%</span></div><div class="sc-sub">중앙값 78.16%</div></div>
-      <div class="stat-card"><div class="sc-label">표준편차</div><div class="sc-val">73.58<span style="font-size:14px">%</span></div><div class="sc-sub">CV=76.17%</div></div>
-      <div class="stat-card"><div class="sc-label">기준일</div><div class="sc-val" style="font-size:16px">2026.03.31</div><div class="sc-sub">KRX ETF 데이터</div></div>
+      <div class="stat-card"><div class="sc-label">분석 대상</div><div class="sc-val">600<span style="font-size:15px;font-weight:400"> 개</span></div><div class="sc-sub">주식 ETF (레버리지·인버스 제외)</div></div>
+      <div class="stat-card sc-green"><div class="sc-label">평균 수익률</div><div class="sc-val">96.59<span style="font-size:15px"> %</span></div><div class="sc-sub">중앙값 78.16%</div></div>
+      <div class="stat-card sc-orange"><div class="sc-label">표준편차</div><div class="sc-val">73.58<span style="font-size:15px"> %</span></div><div class="sc-sub">변동계수 CV = 76.17%</div></div>
+      <div class="stat-card sc-purple"><div class="sc-label">기준일</div><div class="sc-val" style="font-size:17px">2026.03.31</div><div class="sc-sub">KRX ETF 데이터</div></div>
     </div>
   </div>
 
@@ -173,8 +389,8 @@ a{text-decoration:none;color:inherit}
     <div class="guide-tip">💡 각 변수가 1년 수익률(Y1)에 어떤 영향을 미치는지 분석 결과를 함께 표시합니다.
     연속형은 상관계수(r)와 유의성, 범주형은 F통계량·η²(효과 크기)·집단 간 평균 수익률 범위를 나타냅니다.</div>
     <div class="table-wrap">
-    <table class="stbl">
-      <thead><tr><th>변수</th><th>명칭</th><th>설명</th><th>유형</th><th>Y1 분석 결과</th></tr></thead>
+    <table class="stbl var-tbl">
+      <thead><tr><th>변수</th><th>명칭</th><th style="text-align:left">설명</th><th>유형</th><th style="text-align:left">Y1 분석 결과</th></tr></thead>
       <tbody>
         <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률. 예) 50%이면 1년 전보다 가격이 50% 상승</td><td><span class="badge b-blue">연속형</span></td><td><span class="badge b-gray">종속변수</span> 평균 96.59%, 중앙값 78.16%</td></tr>
         <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF에 투자된 전체 자금의 합계(원). 클수록 많은 투자자가 참여한 대형 상품으로 안정성이 상대적으로 높음</td><td><span class="badge b-blue">연속형</span></td><td>r=0.1209 <span class="badge b-orange">**</span> R²=0.0146<br><small style="color:#64748b">순자산이 클수록 수익률 소폭 높음 (약한 양의 상관)</small></td></tr>
@@ -195,7 +411,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ② 기술통계 -->
 <section class="cat-section" id="sec-desc">
-  <div class="sec-header">
+  <div class="sec-header sh-blue">
     <span class="sec-icon">📈</span>
     <div><div class="sec-title">기술통계</div>
     <div class="sec-desc">Y1(수익률_1Y) 분포 특성 및 연속형 변수 기초 통계</div></div>
@@ -255,7 +471,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ③ 연속형 변수 분석 -->
 <section class="cat-section" id="sec-cont">
-  <div class="sec-header">
+  <div class="sec-header sh-indigo">
     <span class="sec-icon">🔗</span>
     <div><div class="sec-title">연속형 변수 분석</div>
     <div class="sec-desc">X1·X2·X3·X4·X5·X9 — 상관분석 · 단순회귀 · 다중회귀</div></div>
@@ -393,7 +609,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ④ 범주형 변수 ANOVA -->
 <section class="cat-section" id="sec-cat">
-  <div class="sec-header">
+  <div class="sec-header sh-purple">
     <span class="sec-icon">📦</span>
     <div><div class="sec-title">범주형 변수 분석 (ANOVA)</div>
     <div class="sec-desc">X6·X7·X8·X10 — 집단별 수익률 차이 검정</div></div>
@@ -771,7 +987,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ⑤ 종합 결론 -->
 <section class="cat-section" id="sec-conclusion">
-  <div class="sec-header">
+  <div class="sec-header sh-green">
     <span class="sec-icon">💡</span>
     <div><div class="sec-title">종합 결론</div>
     <div class="sec-desc">핵심 발견 및 투자 시사점</div></div>
@@ -811,7 +1027,7 @@ a{text-decoration:none;color:inherit}
 
 <!-- ⑥ 로우 데이터 -->
 <section class="cat-section" id="sec-raw">
-  <div class="sec-header">
+  <div class="sec-header sh-slate">
     <span class="sec-icon">📋</span>
     <div><div class="sec-title">로우 데이터</div>
     <div class="sec-desc">600개 주식 ETF 원본 데이터</div></div>
