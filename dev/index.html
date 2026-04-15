@@ -169,22 +169,24 @@ a{text-decoration:none;color:inherit}
   </div>
 
   <div class="sub-sec">
-    <h3 class="sub-title">2. 변수 정의</h3>
+    <h3 class="sub-title">2. 변수 정의 및 Y1과의 관계</h3>
+    <div class="guide-tip">💡 각 변수가 1년 수익률(Y1)에 어떤 영향을 미치는지 분석 결과를 함께 표시합니다.
+    연속형은 상관계수(r)와 유의성, 범주형은 F통계량·η²(효과 크기)·집단 간 평균 수익률 범위를 나타냅니다.</div>
     <div class="table-wrap">
     <table class="stbl">
-      <thead><tr><th>변수</th><th>명칭</th><th>설명</th><th>유형</th></tr></thead>
+      <thead><tr><th>변수</th><th>명칭</th><th>설명</th><th>유형</th><th>Y1 분석 결과</th></tr></thead>
       <tbody>
-        <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률. 예) 50%이면 1년 전보다 가격이 50% 상승</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF에 투자된 전체 자금의 합계(원). 클수록 많은 투자자가 참여한 대형 상품으로 안정성이 상대적으로 높음</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X2</strong></td><td>총보수</td><td>ETF를 보유하는 동안 매년 부과되는 운용 수수료(%). 낮을수록 투자자의 실질 수익에 유리</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X3</strong></td><td>존속기간</td><td>ETF가 처음 상장된 날부터 현재까지 운용된 기간(년). 길수록 시장 환경 변화를 여러 차례 경험한 검증된 상품</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X4</strong></td><td>평균거래대금_1Y</td><td>하루 평균 얼마나 많은 금액이 거래되는지를 나타내는 수치(백만원). 높을수록 원하는 가격에 쉽게 사고팔 수 있음</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X5</strong></td><td>외국인보유비율</td><td>전체 ETF 발행 주식 중 외국인이 보유한 비중(%). 외국 기관·투자자의 관심도와 신뢰도를 간접적으로 반영</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X6</strong></td><td>투자전략</td><td>ETF의 운용 방식. '패시브'는 특정 지수를 그대로 따라가는 방식이고, '액티브'는 펀드매니저가 직접 종목을 선별해 운용하는 방식</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X7</strong></td><td>투자시장</td><td>ETF가 실제로 투자하는 국가 또는 지역(예: 한국, 미국, 중국, 글로벌 등). 어느 시장에 투자하느냐가 수익률에 직접적인 영향을 줌</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X8</strong></td><td>복제방법</td><td>지수를 따라가는 구체적인 방법. '완전복제'는 지수 구성 종목을 모두 직접 매수하고, '최적화'는 비용 절감을 위해 일부 종목만 선별해 매수</td><td><span class="badge b-orange">범주형</span></td></tr>
-        <tr><td><strong>X9</strong></td><td>변동성</td><td>ETF 가격이 매일 얼마나 크게 오르내리는지를 나타내는 수치. 높을수록 수익률 기복이 심하고 투자 위험이 상대적으로 큼</td><td><span class="badge b-blue">연속형</span></td></tr>
-        <tr><td><strong>X10</strong></td><td>운용사</td><td>ETF를 실제로 운용·관리하는 자산운용회사(예: 미래에셋, 삼성, 한국투자 등). 운용사의 역량과 보유 ETF 라인업에 따라 수익률 차이가 발생할 수 있음</td><td><span class="badge b-orange">범주형</span></td></tr>
+        <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률. 예) 50%이면 1년 전보다 가격이 50% 상승</td><td><span class="badge b-blue">연속형</span></td><td><span class="badge b-gray">종속변수</span> 평균 96.59%, 중앙값 78.16%</td></tr>
+        <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF에 투자된 전체 자금의 합계(원). 클수록 많은 투자자가 참여한 대형 상품으로 안정성이 상대적으로 높음</td><td><span class="badge b-blue">연속형</span></td><td>r=0.1209 <span class="badge b-orange">**</span> R²=0.0146<br><small style="color:#64748b">순자산이 클수록 수익률 소폭 높음 (약한 양의 상관)</small></td></tr>
+        <tr><td><strong>X2</strong></td><td>총보수</td><td>ETF를 보유하는 동안 매년 부과되는 운용 수수료(%). 낮을수록 투자자의 실질 수익에 유리</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0218 <span class="badge b-gray">ns</span> R²=0.0005<br><small style="color:#64748b">총보수와 수익률은 통계적으로 유의한 관계 없음</small></td></tr>
+        <tr><td><strong>X3</strong></td><td>존속기간</td><td>ETF가 처음 상장된 날부터 현재까지 운용된 기간(년). 길수록 시장 환경 변화를 여러 차례 경험한 검증된 상품</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0839 <span class="badge b-yellow">*</span> R²=0.007<br><small style="color:#64748b">운용 기간이 길수록 수익률 소폭 높음 (약한 양의 상관)</small></td></tr>
+        <tr><td><strong>X4</strong></td><td>평균거래대금_1Y</td><td>하루 평균 얼마나 많은 금액이 거래되는지를 나타내는 수치(백만원). 높을수록 원하는 가격에 쉽게 사고팔 수 있음</td><td><span class="badge b-blue">연속형</span></td><td>r=0.1319 <span class="badge b-orange">**</span> R²=0.0174<br><small style="color:#64748b">거래가 활발한 ETF일수록 수익률 소폭 높음 (연속형 중 최대 상관)</small></td></tr>
+        <tr><td><strong>X5</strong></td><td>외국인보유비율</td><td>전체 ETF 발행 주식 중 외국인이 보유한 비중(%). 외국 기관·투자자의 관심도와 신뢰도를 간접적으로 반영</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0685 <span class="badge b-gray">ns</span> R²=0.0047<br><small style="color:#64748b">외국인 보유비율과 수익률은 유의한 관계 없음</small></td></tr>
+        <tr><td><strong>X6</strong></td><td>투자전략</td><td>ETF의 운용 방식. '패시브'는 특정 지수를 그대로 따라가는 방식이고, '액티브'는 펀드매니저가 직접 종목을 선별해 운용하는 방식</td><td><span class="badge b-orange">범주형</span></td><td>F=9.7973 <span class="badge b-red">***</span> η²=0.0318<br><small style="color:#64748b">패시브(멀티에셋) 108.57% → 액티브 52.12% 순 (소효과)</small></td></tr>
+        <tr><td><strong>X7</strong></td><td>투자시장</td><td>ETF가 실제로 투자하는 국가 또는 지역(예: 한국, 미국, 중국, 글로벌 등). 어느 시장에 투자하느냐가 수익률에 직접적인 영향을 줌</td><td><span class="badge b-orange">범주형</span></td><td>F=35.4891 <span class="badge b-red">***</span> η²=0.2642<br><small style="color:#64748b">한국(129.6%) ↔ 기타(24.75%) 최대 차이 (대효과)</small></td></tr>
+        <tr><td><strong>X8</strong></td><td>복제방법</td><td>지수를 따라가는 구체적인 방법. '완전복제'는 지수 구성 종목을 모두 직접 매수하고, '최적화'는 비용 절감을 위해 일부 종목만 선별해 매수</td><td><span class="badge b-orange">범주형</span></td><td>F=45.0788 <span class="badge b-red">***</span> η²=0.1312<br><small style="color:#64748b">완전복제 127.59% > 최적화 방식 (대효과)</small></td></tr>
+        <tr><td><strong>X9</strong></td><td>변동성</td><td>ETF 가격이 매일 얼마나 크게 오르내리는지를 나타내는 수치. 높을수록 수익률 기복이 심하고 투자 위험이 상대적으로 큼</td><td><span class="badge b-blue">연속형</span></td><td>r=-0.0838 <span class="badge b-yellow">*</span> R²=0.007<br><small style="color:#64748b">변동성이 높을수록 수익률 소폭 낮아지는 경향 (약한 음의 상관)</small></td></tr>
+        <tr><td><strong>X10</strong></td><td>운용사</td><td>ETF를 실제로 운용·관리하는 자산운용회사(예: 미래에셋, 삼성, 한국투자 등). 운용사의 역량과 보유 ETF 라인업에 따라 수익률 차이가 발생할 수 있음</td><td><span class="badge b-orange">범주형</span></td><td>F=91.0384 <span class="badge b-red">***</span> η²=0.3146<br><small style="color:#64748b">미래에셋 123.17% ↔ 최하위 운용사 22.56% (대효과, η² 최대)</small></td></tr>
       </tbody>
     </table>
     </div>
