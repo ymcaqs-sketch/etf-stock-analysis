@@ -338,11 +338,82 @@ a{text-decoration:none;color:inherit}
   .raw-dl-btn{margin-left:0;width:100%;text-align:center}
 }
 @media(min-width:769px){.menu-btn{display:none}}
-/* ── 변수 정의 테이블 좌정렬 ── */
-.var-tbl td:nth-child(3),
-.var-tbl td:nth-child(5){text-align:left;line-height:1.6}
 /* ── 기술통계 테이블 번갈아 색상 강조 ── */
 .stbl .row-y{background:#eff6ff!important;font-weight:600}
+/* ── 변수 카드 ── */
+.var-cards{display:flex;flex-direction:column;gap:20px}
+.var-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+.var-card-hd{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;color:#fff;
+}
+.vc-code{
+  font-size:16px;font-weight:800;letter-spacing:-.01em;
+  background:rgba(255,255,255,.18);border-radius:6px;
+  padding:3px 10px;flex-shrink:0;
+}
+.vc-name{font-size:14px;font-weight:600;opacity:.92}
+.var-card-bd{padding:20px 22px;background:#fff}
+.vc-desc{
+  font-size:13px;line-height:1.8;color:var(--text);
+  margin-bottom:16px;padding-bottom:16px;
+  border-bottom:1px dashed var(--border);
+}
+.vc-formula{
+  background:#f8fafc;border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:14px 16px;
+  margin-bottom:14px;
+}
+.vc-formula-title{font-size:12px;font-weight:700;color:var(--text-sub);margin-bottom:8px}
+.vc-formula-eq{
+  font-family:'Courier New',monospace;font-size:13px;
+  background:#1e293b;color:#e2e8f0;
+  padding:8px 14px;border-radius:var(--r-sm);
+  margin:6px 0;line-height:1.6;overflow-x:auto;
+}
+.vc-formula-note{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7}
+.vc-result-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:10px;margin-bottom:12px;
+}
+.vc-result-item{
+  background:var(--bg);border-radius:var(--r-sm);
+  padding:10px 12px;border:1px solid var(--border);
+  display:flex;flex-direction:column;gap:3px;
+}
+.vc-rl{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.vc-rv{font-size:15px;font-weight:700;color:var(--text);line-height:1.2}
+.vc-rs{font-size:11px;color:var(--muted);line-height:1.4}
+.vc-rbar-wrap{margin-bottom:14px}
+.vc-stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.vc-stat{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:8px 10px;
+}
+.vc-stat-l{display:block;font-size:10px;color:var(--muted);font-weight:500}
+.vc-stat-v{display:block;font-size:14px;font-weight:700;color:var(--text);margin-top:2px}
+.vc-group-section{margin-bottom:14px}
+.grp-bars{display:flex;flex-direction:column;gap:6px}
+.grp-row{display:grid;grid-template-columns:clamp(100px,28%,200px) 1fr auto;align-items:center;gap:8px}
+.grp-label{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grp-label small{font-size:10px;color:var(--muted);font-weight:400}
+.grp-track{background:#e2e8f0;border-radius:4px;height:22px;overflow:hidden}
+.grp-fill{height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px;transition:width .4s ease}
+.grp-val{font-size:12px;font-weight:700;white-space:nowrap;color:var(--text)}
+.vc-interp{
+  background:#f0f7ff;border-left:4px solid var(--blue);
+  border-radius:var(--r-sm);padding:13px 16px;
+  font-size:13px;line-height:1.85;color:#1e3a8a;
+}
+@media(max-width:768px){
+  .vc-result-row,.vc-stats-grid{grid-template-columns:1fr 1fr}
+  .grp-row{grid-template-columns:1fr auto;}
+  .grp-row .grp-track{display:none}
+  .vc-formula-eq{font-size:11px}
+}
 </style>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 </head>
@@ -385,27 +456,626 @@ a{text-decoration:none;color:inherit}
   </div>
 
   <div class="sub-sec">
-    <h3 class="sub-title">2. 변수 정의 및 Y1과의 관계</h3>
-    <div class="guide-tip">💡 각 변수가 1년 수익률(Y1)에 어떤 영향을 미치는지 분석 결과를 함께 표시합니다.
-    연속형은 상관계수(r)와 유의성, 범주형은 F통계량·η²(효과 크기)·집단 간 평균 수익률 범위를 나타냅니다.</div>
-    <div class="table-wrap">
-    <table class="stbl var-tbl">
-      <thead><tr><th>변수</th><th>명칭</th><th style="text-align:left">설명</th><th>유형</th><th style="text-align:left">Y1 분석 결과</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Y1</strong></td><td>수익률_1Y</td><td>지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률. 예) 50%이면 1년 전보다 가격이 50% 상승</td><td><span class="badge b-blue">연속형</span></td><td><span class="badge b-gray">종속변수</span> 평균 96.59%, 중앙값 78.16%</td></tr>
-        <tr><td><strong>X1</strong></td><td>순자산총액</td><td>ETF에 투자된 전체 자금의 합계(원). 클수록 많은 투자자가 참여한 대형 상품으로 안정성이 상대적으로 높음</td><td><span class="badge b-blue">연속형</span></td><td>r=0.1209 <span class="badge b-orange">**</span> R²=0.0146<br><small style="color:#64748b">순자산이 클수록 수익률 소폭 높음 (약한 양의 상관)</small></td></tr>
-        <tr><td><strong>X2</strong></td><td>총보수</td><td>ETF를 보유하는 동안 매년 부과되는 운용 수수료(%). 낮을수록 투자자의 실질 수익에 유리</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0218 <span class="badge b-gray">ns</span> R²=0.0005<br><small style="color:#64748b">총보수와 수익률은 통계적으로 유의한 관계 없음</small></td></tr>
-        <tr><td><strong>X3</strong></td><td>존속기간</td><td>ETF가 처음 상장된 날부터 현재까지 운용된 기간(년). 길수록 시장 환경 변화를 여러 차례 경험한 검증된 상품</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0839 <span class="badge b-yellow">*</span> R²=0.007<br><small style="color:#64748b">운용 기간이 길수록 수익률 소폭 높음 (약한 양의 상관)</small></td></tr>
-        <tr><td><strong>X4</strong></td><td>평균거래대금_1Y</td><td>하루 평균 얼마나 많은 금액이 거래되는지를 나타내는 수치(백만원). 높을수록 원하는 가격에 쉽게 사고팔 수 있음</td><td><span class="badge b-blue">연속형</span></td><td>r=0.1319 <span class="badge b-orange">**</span> R²=0.0174<br><small style="color:#64748b">거래가 활발한 ETF일수록 수익률 소폭 높음 (연속형 중 최대 상관)</small></td></tr>
-        <tr><td><strong>X5</strong></td><td>외국인보유비율</td><td>전체 ETF 발행 주식 중 외국인이 보유한 비중(%). 외국 기관·투자자의 관심도와 신뢰도를 간접적으로 반영</td><td><span class="badge b-blue">연속형</span></td><td>r=0.0685 <span class="badge b-gray">ns</span> R²=0.0047<br><small style="color:#64748b">외국인 보유비율과 수익률은 유의한 관계 없음</small></td></tr>
-        <tr><td><strong>X6</strong></td><td>투자전략</td><td>ETF의 운용 방식. '패시브'는 특정 지수를 그대로 따라가는 방식이고, '액티브'는 펀드매니저가 직접 종목을 선별해 운용하는 방식</td><td><span class="badge b-orange">범주형</span></td><td>F=9.7973 <span class="badge b-red">***</span> η²=0.0318<br><small style="color:#64748b">패시브(멀티에셋) 108.57% → 액티브 52.12% 순 (소효과)</small></td></tr>
-        <tr><td><strong>X7</strong></td><td>투자시장</td><td>ETF가 실제로 투자하는 국가 또는 지역(예: 한국, 미국, 중국, 글로벌 등). 어느 시장에 투자하느냐가 수익률에 직접적인 영향을 줌</td><td><span class="badge b-orange">범주형</span></td><td>F=35.4891 <span class="badge b-red">***</span> η²=0.2642<br><small style="color:#64748b">한국(129.6%) ↔ 기타(24.75%) 최대 차이 (대효과)</small></td></tr>
-        <tr><td><strong>X8</strong></td><td>복제방법</td><td>지수를 따라가는 구체적인 방법. '완전복제'는 지수 구성 종목을 모두 직접 매수하고, '최적화'는 비용 절감을 위해 일부 종목만 선별해 매수</td><td><span class="badge b-orange">범주형</span></td><td>F=45.0788 <span class="badge b-red">***</span> η²=0.1312<br><small style="color:#64748b">완전복제 127.59% > 최적화 방식 (대효과)</small></td></tr>
-        <tr><td><strong>X9</strong></td><td>변동성</td><td>ETF 가격이 매일 얼마나 크게 오르내리는지를 나타내는 수치. 높을수록 수익률 기복이 심하고 투자 위험이 상대적으로 큼</td><td><span class="badge b-blue">연속형</span></td><td>r=-0.0838 <span class="badge b-yellow">*</span> R²=0.007<br><small style="color:#64748b">변동성이 높을수록 수익률 소폭 낮아지는 경향 (약한 음의 상관)</small></td></tr>
-        <tr><td><strong>X10</strong></td><td>운용사</td><td>ETF를 실제로 운용·관리하는 자산운용회사(예: 미래에셋, 삼성, 한국투자 등). 운용사의 역량과 보유 ETF 라인업에 따라 수익률 차이가 발생할 수 있음</td><td><span class="badge b-orange">범주형</span></td><td>F=91.0384 <span class="badge b-red">***</span> η²=0.3146<br><small style="color:#64748b">미래에셋 123.17% ↔ 최하위 운용사 22.56% (대효과, η² 최대)</small></td></tr>
-      </tbody>
-    </table>
-    </div>
+    <h3 class="sub-title">2. 변수 정의 및 Y1 분석 결과</h3>
+    <div class="guide-tip">💡 Y1(수익률_1Y)에 영향을 미치는 11개 변수(Y1 포함)에 대해 변수 정의, 분석 수식, 계산 결과, 해석을 상세히 제공합니다.
+    연속형 변수(X1~X5, X9)는 피어슨 상관분석을, 범주형 변수(X6~X8, X10)는 일원배치 분산분석(ANOVA)을 적용합니다.</div>
+    <div class="var-cards"><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#1e293b,#334155)">
+        <span class="vc-code">Y1</span>
+        <span class="vc-name">수익률_1Y &nbsp;—&nbsp; 종속변수 (분석 대상 결과)</span>
+        <span class="badge b-gray" style="margin-left:auto;flex-shrink:0">종속변수</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">지난 1년 동안 ETF 가격이 얼마나 올랐는지를 나타내는 수익률입니다.
+        예를 들어 Y1 = 50%라면, 1년 전에 100만 원을 투자했을 때 현재 150만 원이 됐다는 의미입니다.
+        이 분석에서 Y1은 나머지 변수들(X1~X10)이 설명하고자 하는 <strong>결과 변수(종속변수)</strong>입니다.
+        즉, "어떤 요인이 Y1을 높이거나 낮추는가?"가 이 분석의 핵심 질문입니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 기술통계 요약 (600개 주식 ETF)</div>
+          <div class="vc-stats-grid">
+            <div class="vc-stat"><span class="vc-stat-l">표본 수(n)</span><span class="vc-stat-v">600개</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">평균 (Mean)</span><span class="vc-stat-v">96.59%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">중앙값 (Median)</span><span class="vc-stat-v">78.16%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">표준편차 (SD)</span><span class="vc-stat-v">73.58%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">최솟값</span><span class="vc-stat-v">0.0%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">최댓값</span><span class="vc-stat-v">350.24%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">Q1 (하위 25%)</span><span class="vc-stat-v">37.68%</span></div>
+            <div class="vc-stat"><span class="vc-stat-l">Q3 (상위 75%)</span><span class="vc-stat-v">147.31%</span></div>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong>
+        600개 주식 ETF의 평균 수익률은 96.59%로 매우 높습니다.
+        그러나 <strong>중앙값(78.16%)이 평균(96.59%)보다 낮다</strong>는 점이 중요합니다.
+        이는 소수의 초고수익 ETF(최대 350.24%)가 평균을 끌어올리는 오른쪽 편포(왜도=0.9064) 분포이기 때문입니다.
+        예를 들어, 상위 ETF 몇 개가 300% 이상의 수익을 올리면 전체 평균이 크게 높아지지만,
+        실제로 많은 ETF의 수익률은 그보다 낮습니다.
+        따라서 "전형적인 ETF 수익률"을 대표하는 값으로는 중앙값 <strong>78.16%</strong>가 더 적합하며,
+        ETF의 절반은 78.16% 이하, 나머지 절반은 78.16% 이상의 수익률을 기록했습니다.
+        </div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#1d4ed8,#1d4ed8bb)">
+        <span class="vc-code">X1</span>
+        <span class="vc-name">순자산총액</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF에 투자된 전체 자금의 합계(원)로, ETF의 규모를 나타냅니다. 순자산이 클수록 더 많은 투자자가 믿고 맡긴 대형 상품으로, 일반적으로 유동성이 높고 운용사가 갑자기 상품을 없애는(상장폐지) 위험도 낮습니다. 예를 들어 순자산 1조 원이라면, 총 1조 원의 투자 자금이 해당 ETF에 묶여 있다는 의미입니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X1의 i번째 관측값 &nbsp;|&nbsp; X̄ = X1의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X1 단독으로 Y1 분산을 설명하는 비율 = 0.0146 (1.46%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#2563eb">+0.1209</span>
+            <span class="vc-rs">강도: 약함 (0.1~0.3)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#2563eb">양의 상관 (+): X↑ → Y↑</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.003024</span>
+            <span class="vc-rs">유의 ** (p<0.01)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.0146</span>
+            <span class="vc-rs">설명력 1.46%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:80.6%;background:#2563eb;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#2563eb;white-space:nowrap">|r| = 0.1209</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = +0.1209으로 약한 양의 상관을 보이며, p = 0.003024 (p&lt;0.01)로 99% 신뢰수준에서 통계적으로 유의합니다. 그러나 R² = 0.0146로, 순자산총액 단독으로는 수익률 변동의 단 <strong>1.46%만 설명</strong>합니다. 즉, 순자산이 크다고 해서 수익률이 크게 높아진다고 볼 수 없습니다. 이 약한 양의 상관은 대형 ETF 대부분이 한국 코스피200 등 국내 대표 지수를 추종하며 분석 기간(2025~2026) 한국 시장 강세의 수혜를 받은 것과 관련이 있을 가능성이 높습니다. 순자산 자체가 수익률을 만드는 것이 아니라, 두 변수 모두에 영향을 주는 제3의 요인(투자시장)이 존재하는 구조입니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#0891b2,#0891b2bb)">
+        <span class="vc-code">X2</span>
+        <span class="vc-name">총보수</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF를 보유하는 동안 매년 자동으로 차감되는 운용 수수료(%)입니다. 예를 들어 총보수 0.3%인 ETF에 100만 원을 투자하면, 1년에 3,000원이 비용으로 빠져나갑니다. 이 금액은 ETF 가격에 반영되어 자동 차감되므로 투자자가 직접 납부할 필요는 없습니다. 낮을수록 투자자에게 유리하며, 10년 이상 장기 투자 시 보수 차이가 최종 수익에 의미 있는 영향을 미칩니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X2의 i번째 관측값 &nbsp;|&nbsp; X̄ = X2의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X2 단독으로 Y1 분산을 설명하는 비율 = 0.0005 (0.05%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#2563eb">+0.0218</span>
+            <span class="vc-rs">강도: 거의 없음 (<0.1)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#2563eb">양의 상관 (+): X↑ → Y↑</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.593365</span>
+            <span class="vc-rs">비유의 ns (p≥0.05)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.0005</span>
+            <span class="vc-rs">설명력 0.05%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:14.5%;background:#2563eb;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#2563eb;white-space:nowrap">|r| = 0.0218</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = +0.0218으로 상관이 거의 없으며, p = 0.593365 (p≥0.05)로 <strong>통계적으로 유의하지 않습니다(ns: not significant)</strong>. R² = 0.0005로 설명력은 0.05%에 불과합니다. 즉, 이 데이터에서는 총보수가 낮다고 수익률이 높거나, 반대로 보수가 높다고 수익률이 낮아지는 경향이 통계적으로 확인되지 않습니다. 이는 수익률을 결정하는 훨씬 강한 요인(투자시장, 운용사)이 보수 효과를 압도하기 때문입니다. 단, 동일한 지수를 추종하는 유사한 ETF끼리 비교할 때는 보수가 낮은 쪽이 장기적으로 유리하다는 원칙은 여전히 유효합니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#059669,#059669bb)">
+        <span class="vc-code">X3</span>
+        <span class="vc-name">존속기간</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF가 처음 주식시장에 상장된 날부터 분석 시점까지 운용된 기간(년)입니다. 상장일을 기준으로 계산하며, 예를 들어 2015년에 상장된 ETF라면 존속기간은 약 11년입니다. 존속기간이 길다는 것은 금융위기, 코로나 폭락 등 다양한 시장 환경을 경험한 검증된 상품임을 의미합니다. 반면 신규 상장 ETF는 실적 이력이 짧아 특성 파악이 어렵습니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X3의 i번째 관측값 &nbsp;|&nbsp; X̄ = X3의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X3 단독으로 Y1 분산을 설명하는 비율 = 0.007 (0.7%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#2563eb">+0.0839</span>
+            <span class="vc-rs">강도: 거의 없음 (<0.1)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#2563eb">양의 상관 (+): X↑ → Y↑</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.039875</span>
+            <span class="vc-rs">유의 * (p<0.05)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.007</span>
+            <span class="vc-rs">설명력 0.7%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:55.9%;background:#2563eb;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#2563eb;white-space:nowrap">|r| = 0.0839</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = +0.0839으로 약한 양의 상관을 보이며, p = 0.039875 (p&lt;0.05)로 95% 신뢰수준에서 통계적으로 유의합니다. 그러나 R² = 0.007로 설명력은 0.7%에 불과합니다. 오래된 ETF일수록 수익률이 소폭 높은 경향이 있으나, 이는 존속기간 자체가 수익률을 높이는 것이 아닙니다. 초기 상장된 ETF 대부분이 한국 코스피 대형주 지수를 추종하는 상품이었고, 분석 기간 한국 시장이 강세를 보였기 때문에 나타나는 간접적 효과일 가능성이 높습니다. 따라서 "오래된 ETF라서 수익률이 좋다"는 해석은 적절하지 않습니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#7c3aed,#7c3aedbb)">
+        <span class="vc-code">X4</span>
+        <span class="vc-name">평균거래대금_1Y</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">최근 1년간 하루 평균 얼마나 많은 금액이 사고팔렸는지를 나타냅니다(단위: 백만 원). 예를 들어 평균거래대금 500백만 원이면, 매일 평균 5억 원어치가 거래됩니다. 이 수치가 높을수록 "유동성"이 좋아 원하는 시점에 원하는 가격으로 쉽게 매매할 수 있습니다. 반대로 거래대금이 매우 낮으면, 팔고 싶을 때 살 사람이 없어 가격이 불리하게 형성될 수 있습니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X4의 i번째 관측값 &nbsp;|&nbsp; X̄ = X4의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X4 단독으로 Y1 분산을 설명하는 비율 = 0.0174 (1.74%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#2563eb">+0.1319</span>
+            <span class="vc-rs">강도: 약함 (0.1~0.3)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#2563eb">양의 상관 (+): X↑ → Y↑</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.001205</span>
+            <span class="vc-rs">유의 ** (p<0.01)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.0174</span>
+            <span class="vc-rs">설명력 1.74%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:87.9%;background:#2563eb;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#2563eb;white-space:nowrap">|r| = 0.1319</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = +0.1319으로 <strong>연속형 변수 중 가장 높은 상관</strong>을 보이며, p = 0.001205 (p&lt;0.01)로 99% 신뢰수준에서 통계적으로 유의합니다. R² = 0.0174로 설명력은 1.74%입니다. 거래가 활발한 ETF일수록 수익률이 소폭 높게 나타나지만, 주의할 해석이 있습니다. 이는 "거래대금이 많아서 수익률이 높은" 것이 아니라, 반대로 "수익률이 좋아서 투자자들이 몰려 거래가 늘어난" 역인과 관계일 가능성도 있습니다. 또한 R² = 0.0174로 설명력이 1.74%에 불과하므로 거래대금만으로 수익률을 예측하는 것은 부적절합니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#db2777,#db2777bb)">
+        <span class="vc-code">X5</span>
+        <span class="vc-name">외국인보유비율</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">전체 ETF 발행 주식 중 외국인 투자자(외국 기관·개인)가 보유한 비중(%)입니다. 외국인 보유비율이 높으면 글로벌 투자자로부터 주목받는 상품이라는 신호일 수 있습니다. 일반적으로 외국인은 유동성이 높고 규모가 큰 ETF, 특히 한국을 대표하는 지수 ETF(예: 코스피200 추종 ETF)를 선호하는 경향이 있습니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X5의 i번째 관측값 &nbsp;|&nbsp; X̄ = X5의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X5 단독으로 Y1 분산을 설명하는 비율 = 0.0047 (0.47%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#2563eb">+0.0685</span>
+            <span class="vc-rs">강도: 거의 없음 (<0.1)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#2563eb">양의 상관 (+): X↑ → Y↑</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.093525</span>
+            <span class="vc-rs">비유의 ns (p≥0.05)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.0047</span>
+            <span class="vc-rs">설명력 0.47%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:45.7%;background:#2563eb;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#2563eb;white-space:nowrap">|r| = 0.0685</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = +0.0685이며, p = 0.093525 (p≥0.05)로 <strong>통계적으로 유의하지 않습니다(ns)</strong>. R² = 0.0047로 설명력은 0.47%에 불과합니다. 외국인 보유비율과 1년 수익률 사이에는 통계적으로 의미 있는 선형 관계가 없습니다. 외국인 투자자가 수익성 외에도 유동성, 리스크 관리, 헤지 목적 등 다양한 이유로 ETF를 보유하기 때문으로 해석됩니다. 즉, "외국인이 많이 샀으니 수익률도 좋겠다"는 판단은 이 데이터에서 지지되지 않습니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#ea580c,#ea580cbb)">
+        <span class="vc-code">X9</span>
+        <span class="vc-name">변동성</span>
+        <span class="badge b-blue" style="margin-left:auto;flex-shrink:0">연속형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF 가격이 하루하루 얼마나 크게 오르내리는지를 수치로 표현한 것입니다. 변동성이 높다는 것은 가격 변화의 폭이 크다는 의미로, 좋은 날에는 많이 오르지만 나쁜 날에는 많이 내리는 특성을 가집니다. 일반적으로 개별 업종에 집중 투자하는 섹터 ETF나 신흥국 ETF가 코스피200 같은 대형 분산 지수 ETF보다 변동성이 높습니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 피어슨 상관분석 (Pearson Correlation Analysis)</div>
+          <div class="vc-formula-eq">r = Σ[(Xᵢ − X̄)(Yᵢ − Ȳ)] ÷ √[ Σ(Xᵢ−X̄)² × Σ(Yᵢ−Ȳ)² ]</div>
+          <div class="vc-formula-note">
+            Xᵢ = X9의 i번째 관측값 &nbsp;|&nbsp; X̄ = X9의 전체 평균 &nbsp;|&nbsp; Yᵢ = Y1의 i번째 관측값 &nbsp;|&nbsp; Ȳ = Y1 전체 평균 (96.59%) &nbsp;|&nbsp; n = 600<br>
+            r값은 −1 ~ +1 사이. +1에 가까울수록 강한 양의 상관, −1에 가까울수록 강한 음의 상관, 0이면 관계 없음.
+          </div>
+          <div class="vc-formula-eq">R² = r²  →  X9 단독으로 Y1 분산을 설명하는 비율 = 0.007 (0.7%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">상관계수 r</span>
+            <span class="vc-rv" style="color:#dc2626">-0.0838</span>
+            <span class="vc-rs">강도: 거의 없음 (<0.1)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">방향</span>
+            <span class="vc-rv" style="font-size:12px;color:#dc2626">음의 상관 (−): X↑ → Y↓</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">0.040187</span>
+            <span class="vc-rs">유의 * (p<0.05)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">결정계수 R²</span>
+            <span class="vc-rv">0.007</span>
+            <span class="vc-rs">설명력 0.7%</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">상관 강도 시각화 (|r| 기준, 기준선 0.15 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:55.9%;background:#dc2626;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#dc2626;white-space:nowrap">|r| = 0.0838</span>
+          </div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> r = -0.0838으로 약한 음의 상관을 보이며, p = 0.040187 (p&lt;0.05)로 통계적으로 유의합니다. R² = 0.007로 설명력은 0.7%입니다. <strong>변동성이 높을수록 수익률이 오히려 낮아지는 경향</strong>이 분석 기간에 나타납니다. 이는 "위험이 클수록 수익도 크다(High Risk, High Return)"는 일반적인 원칙과 반대처럼 보입니다. 그러나 이는 분석 기간(2025~2026) 특수 상황을 반영합니다. 변동성이 낮은 한국 코스피 대형주 ETF가 강세를 보인 반면, 변동성이 높은 해외 신흥국·섹터 ETF들이 상대적으로 부진했기 때문입니다. 이 결과는 특정 기간의 시장 특성이 반영된 것으로, 항상 변동성이 낮을수록 수익률이 높다는 일반적 결론으로 확대 해석할 수 없습니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#6d28d9,#6d28d9bb)">
+        <span class="vc-code">X6</span>
+        <span class="vc-name">투자전략</span>
+        <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF를 운용하는 방식을 크게 구분한 것입니다. <strong>패시브(Passive) 전략</strong>은 코스피200, S&P500 같은 특정 지수의 구성 종목과 비율을 그대로 따라가는 방식으로, 운용사의 주관적 판단 없이 지수 수익률을 추구합니다. <strong>액티브(Active) 전략</strong>은 전문 펀드매니저가 직접 종목을 선별하고 비중을 조절하며, 시장 평균보다 높은 수익을 목표로 합니다. <strong>멀티에셋(Multi-Asset)</strong>은 주식, 채권, 금 등 여러 종류의 자산에 동시에 분산투자하는 방식입니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
+          <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
+          <div class="vc-formula-note">
+            SS집단간(집단 간 제곱합) = Σ nⱼ(Ȳⱼ − Ȳ)² &nbsp;|&nbsp; SS집단내(집단 내 제곱합) = ΣΣ(Yᵢⱼ − Ȳⱼ)²<br>
+            k = 집단 수 (3개) &nbsp;|&nbsp; N = 전체 관측수 (599) &nbsp;|&nbsp; Ȳⱼ = j번째 집단의 평균 수익률 &nbsp;|&nbsp; Ȳ = 전체 평균 (96.59%)<br>
+            F가 클수록 "집단 간 차이"가 "집단 내 변동(우연 오차)"보다 크다 → 집단 구분이 의미 있음
+          </div>
+          <div class="vc-formula-eq">η² (에타제곱) = SS집단간 ÷ SS전체  →  수익률 분산 중 X6으로 설명되는 비율 = 0.0318 (3.2%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">F 통계량</span>
+            <span class="vc-rv">9.7973</span>
+            <span class="vc-rs">집단간/집단내 분산비</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">< 0.0001</span>
+            <span class="vc-rs" style="color:#16a34a">매우 유의 *** (p&lt;0.001)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">효과크기 η²</span>
+            <span class="vc-rv" style="color:#ca8a04">0.0318</span>
+            <span class="vc-rs" style="color:#ca8a04">소효과 (η²≥0.01)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">수익률 설명력</span>
+            <span class="vc-rv" style="color:#ca8a04">3.2%</span>
+            <span class="vc-rs">전체 분산의 3.2% 설명</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">효과크기 η² 시각화 (기준선 η²=0.35 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:9.1%;background:#ca8a04;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#ca8a04;white-space:nowrap">η²=0.0318 (소효과 (η²≥0.01))</span>
+          </div>
+        </div>
+        <div class="vc-group-section">
+          <div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:8px">집단별 Y1 평균 수익률 (내림차순)</div>
+          <div class="grp-bars"><div class="grp-row">
+              <div class="grp-label">실물(액티브)<small> (n=103)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:88.0%"></div></div>
+              <span class="grp-val">108.57%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">실물(패시브)<small> (n=452)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:79.7%"></div></div>
+              <span class="grp-val">98.31%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">합성(패시브)<small> (n=44)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:42.2%"></div></div>
+              <span class="grp-val">52.12%</span>
+            </div></div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 9.7973, p = 6.5e-05 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.0318로 소효과 크기에 해당하며, 투자전략이 수익률 차이의 약 3.2%를 설명합니다. 패시브(멀티에셋) 108.57% → 패시브(패시브) 98.31% → 액티브(패시브) 52.12% 순으로, <strong>액티브 전략이 패시브 대비 약 46%p 낮은 수익률</strong>을 기록했습니다. 이는 분석 기간 한국 대형주 지수가 강하게 상승하는 장세에서 펀드매니저의 종목 선택이 단순 지수 추종을 따라가지 못했음을 시사합니다. 학계에서도 장기적으로 액티브 펀드의 약 80% 이상이 같은 유형의 패시브 펀드에 성과가 뒤진다는 연구 결과가 있으며, 이번 분석도 같은 방향의 결과를 보입니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#b91c1c,#b91c1cbb)">
+        <span class="vc-code">X7</span>
+        <span class="vc-name">투자시장</span>
+        <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF가 실제로 어느 나라·지역의 주식에 투자하는지를 나타냅니다. <strong>한국</strong> ETF는 코스피·코스닥 종목에 투자하며, <strong>미국</strong> ETF는 S&P500·나스닥 등 미국 주식에 투자합니다. <strong>글로벌</strong> ETF는 전 세계 주요 국가에 분산 투자하고, <strong>이머징(신흥국)</strong> ETF는 인도·베트남 등 개발도상국 시장에 투자합니다. 투자하는 국가의 경제 상황, 금리, 환율, 정치 이슈 등에 따라 ETF 수익률이 크게 달라집니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
+          <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
+          <div class="vc-formula-note">
+            SS집단간(집단 간 제곱합) = Σ nⱼ(Ȳⱼ − Ȳ)² &nbsp;|&nbsp; SS집단내(집단 내 제곱합) = ΣΣ(Yᵢⱼ − Ȳⱼ)²<br>
+            k = 집단 수 (7개) &nbsp;|&nbsp; N = 전체 관측수 (600) &nbsp;|&nbsp; Ȳⱼ = j번째 집단의 평균 수익률 &nbsp;|&nbsp; Ȳ = 전체 평균 (96.59%)<br>
+            F가 클수록 "집단 간 차이"가 "집단 내 변동(우연 오차)"보다 크다 → 집단 구분이 의미 있음
+          </div>
+          <div class="vc-formula-eq">η² (에타제곱) = SS집단간 ÷ SS전체  →  수익률 분산 중 X7으로 설명되는 비율 = 0.2642 (26.4%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">F 통계량</span>
+            <span class="vc-rv">35.4891</span>
+            <span class="vc-rs">집단간/집단내 분산비</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">< 0.0001</span>
+            <span class="vc-rs" style="color:#16a34a">매우 유의 *** (p&lt;0.001)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">효과크기 η²</span>
+            <span class="vc-rv" style="color:#dc2626">0.2642</span>
+            <span class="vc-rs" style="color:#dc2626">대효과 (η²≥0.14)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">수익률 설명력</span>
+            <span class="vc-rv" style="color:#dc2626">26.4%</span>
+            <span class="vc-rs">전체 분산의 26.4% 설명</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">효과크기 η² 시각화 (기준선 η²=0.35 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:75.5%;background:#dc2626;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#dc2626;white-space:nowrap">η²=0.2642 (대효과 (η²≥0.14))</span>
+          </div>
+        </div>
+        <div class="vc-group-section">
+          <div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:8px">집단별 Y1 평균 수익률 (내림차순)</div>
+          <div class="grp-bars"><div class="grp-row">
+              <div class="grp-label">한국<small> (n=328)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:88.0%"></div></div>
+              <span class="grp-val">129.56%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">일본<small> (n=9)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:59.7%"></div></div>
+              <span class="grp-val">87.89%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">글로벌<small> (n=71)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:54.4%"></div></div>
+              <span class="grp-val">80.08%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">미국<small> (n=132)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:33.1%"></div></div>
+              <span class="grp-val">48.72%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">중국<small> (n=36)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:31.8%"></div></div>
+              <span class="grp-val">46.87%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">이머징<small> (n=19)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:26.5%"></div></div>
+              <span class="grp-val">39.05%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">유럽<small> (n=5)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:16.8%"></div></div>
+              <span class="grp-val">24.75%</span>
+            </div></div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 35.4891, p ≈ 0 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.2642로 <strong>대효과</strong>에 해당하며, 투자시장이 수익률 차이의 <strong>약 26.4%를 설명</strong>합니다 — 전체 10개 변수 중 두 번째로 높은 설명력입니다. 한국(129.56%)을 정점으로 글로벌(80.08%), 일본(87.89%), 미국(48.72%), 중국(46.87%), 이머징(39.05%), 기타(24.75%) 순이며, 최대 약 105%p의 격차가 발생합니다. 분석 기간(2025~2026) 한국 주식 시장이 글로벌 대비 압도적 강세를 보인 반면, 미국·중국·신흥국 시장은 상대적으로 부진했습니다. 이 결과가 보여주는 핵심 교훈은 <strong>ETF 투자에서 "어느 시장에 투자하느냐"가 수익률을 결정하는 가장 중요한 요소 중 하나</strong>라는 점입니다. 단, 이는 과거 특정 기간의 결과이며, 미래 시장 순위는 달라질 수 있습니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#047857,#047857bb)">
+        <span class="vc-code">X8</span>
+        <span class="vc-name">복제방법</span>
+        <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF가 추종하는 지수를 얼마나 충실히, 어떤 방식으로 따라가는지를 나타냅니다. <strong>완전복제</strong>: 지수에 포함된 모든 종목을 해당 비율 그대로 직접 매수합니다. 가장 정확하지만, 종목 수가 많을 경우 거래 비용이 증가할 수 있습니다. <strong>최적화(선물)</strong>: 해외 지수를 추종할 때 선물 계약을 활용하여 간접적으로 지수 수익률을 추구합니다. 환율 노출을 줄이거나 낮은 비용으로 해외 투자를 가능하게 합니다. <strong>최적화(해외주식 직접보유)</strong>: 지수 구성 종목 중 일부 대표 종목만 선별해 보유하면서 전체 지수의 성과를 근사하는 방식입니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
+          <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
+          <div class="vc-formula-note">
+            SS집단간(집단 간 제곱합) = Σ nⱼ(Ȳⱼ − Ȳ)² &nbsp;|&nbsp; SS집단내(집단 내 제곱합) = ΣΣ(Yᵢⱼ − Ȳⱼ)²<br>
+            k = 집단 수 (3개) &nbsp;|&nbsp; N = 전체 관측수 (600) &nbsp;|&nbsp; Ȳⱼ = j번째 집단의 평균 수익률 &nbsp;|&nbsp; Ȳ = 전체 평균 (96.59%)<br>
+            F가 클수록 "집단 간 차이"가 "집단 내 변동(우연 오차)"보다 크다 → 집단 구분이 의미 있음
+          </div>
+          <div class="vc-formula-eq">η² (에타제곱) = SS집단간 ÷ SS전체  →  수익률 분산 중 X8으로 설명되는 비율 = 0.1312 (13.1%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">F 통계량</span>
+            <span class="vc-rv">45.0788</span>
+            <span class="vc-rs">집단간/집단내 분산비</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">< 0.0001</span>
+            <span class="vc-rs" style="color:#16a34a">매우 유의 *** (p&lt;0.001)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">효과크기 η²</span>
+            <span class="vc-rv" style="color:#ea580c">0.1312</span>
+            <span class="vc-rs" style="color:#ea580c">중효과 (η²≥0.06)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">수익률 설명력</span>
+            <span class="vc-rv" style="color:#ea580c">13.1%</span>
+            <span class="vc-rs">전체 분산의 13.1% 설명</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">효과크기 η² 시각화 (기준선 η²=0.35 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:37.5%;background:#ea580c;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#ea580c;white-space:nowrap">η²=0.1312 (중효과 (η²≥0.06))</span>
+          </div>
+        </div>
+        <div class="vc-group-section">
+          <div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:8px">집단별 Y1 평균 수익률 (내림차순)</div>
+          <div class="grp-bars"><div class="grp-row">
+              <div class="grp-label">비과세<small> (n=244)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:88.0%"></div></div>
+              <span class="grp-val">127.59%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">배당소득세(보유기간과세)<small> (n=335)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:53.6%"></div></div>
+              <span class="grp-val">77.65%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">배당소득세(해외주식투자전용ETF)<small> (n=21)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:26.6%"></div></div>
+              <span class="grp-val">38.51%</span>
+            </div></div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 45.0788, p ≈ 0 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.1312로 <strong>대효과</strong>에 해당하며, 복제방법이 수익률 차이의 약 13.1%를 설명합니다. 완전복제(127.59%) → 최적화-선물(77.65%) → 최적화-해외직접보유(38.51%) 순입니다. 이 차이는 복제방법 자체의 우열이 아닌, <strong>복제방법과 투자시장의 연관성</strong>에서 비롯됩니다. 완전복제 ETF는 대부분 한국 국내 주식을 직접 매수하는 방식을 사용하며, 최적화-해외 ETF는 주로 미국·중국 등 해외 주식을 추종합니다. 즉, 분석 기간 한국 시장 강세 → 완전복제 ETF 수익률 우세라는 구조입니다. 복제방법 자체보다는 해당 방식을 사용하는 ETF들이 어느 시장에 투자하는지가 더 결정적 요인입니다.</div>
+      </div>
+    </div><div class="var-card">
+      <div class="var-card-hd" style="background:linear-gradient(135deg,#b45309,#b45309bb)">
+        <span class="vc-code">X10</span>
+        <span class="vc-name">운용사</span>
+        <span class="badge b-orange" style="margin-left:auto;flex-shrink:0">범주형</span>
+      </div>
+      <div class="var-card-bd">
+        <p class="vc-desc">ETF를 직접 설계하고 운용·관리하는 자산운용회사입니다. 운용사는 어떤 지수를 추종할지, ETF 포트폴리오를 어떻게 구성할지, 비용 구조를 어떻게 설정할지 등을 결정합니다. 대표적인 국내 운용사로는 <strong>미래에셋자산운용</strong>(TIGER ETF), <strong>삼성자산운용</strong>(KODEX ETF), <strong>한국투자신탁운용</strong>(ACE ETF), <strong>키움투자자산운용</strong>(KOSEF ETF) 등이 있으며, 각 운용사마다 강점을 가진 투자 시장과 ETF 유형이 다릅니다.</p>
+        <div class="vc-formula">
+          <div class="vc-formula-title">📐 분석 방법: 일원배치 분산분석 (One-Way ANOVA)</div>
+          <div class="vc-formula-eq">F = MSB ÷ MSW = [ SS집단간 ÷ (k−1) ] ÷ [ SS집단내 ÷ (N−k) ]</div>
+          <div class="vc-formula-note">
+            SS집단간(집단 간 제곱합) = Σ nⱼ(Ȳⱼ − Ȳ)² &nbsp;|&nbsp; SS집단내(집단 내 제곱합) = ΣΣ(Yᵢⱼ − Ȳⱼ)²<br>
+            k = 집단 수 (4개) &nbsp;|&nbsp; N = 전체 관측수 (599) &nbsp;|&nbsp; Ȳⱼ = j번째 집단의 평균 수익률 &nbsp;|&nbsp; Ȳ = 전체 평균 (96.59%)<br>
+            F가 클수록 "집단 간 차이"가 "집단 내 변동(우연 오차)"보다 크다 → 집단 구분이 의미 있음
+          </div>
+          <div class="vc-formula-eq">η² (에타제곱) = SS집단간 ÷ SS전체  →  수익률 분산 중 X10으로 설명되는 비율 = 0.3146 (31.5%)</div>
+        </div>
+        <div class="vc-result-row">
+          <div class="vc-result-item">
+            <span class="vc-rl">F 통계량</span>
+            <span class="vc-rv">91.0384</span>
+            <span class="vc-rs">집단간/집단내 분산비</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">p값 (유의성)</span>
+            <span class="vc-rv" style="font-size:12px">< 0.0001</span>
+            <span class="vc-rs" style="color:#16a34a">매우 유의 *** (p&lt;0.001)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">효과크기 η²</span>
+            <span class="vc-rv" style="color:#dc2626">0.3146</span>
+            <span class="vc-rs" style="color:#dc2626">대효과 (η²≥0.14)</span>
+          </div>
+          <div class="vc-result-item">
+            <span class="vc-rl">수익률 설명력</span>
+            <span class="vc-rv" style="color:#dc2626">31.5%</span>
+            <span class="vc-rs">전체 분산의 31.5% 설명</span>
+          </div>
+        </div>
+        <div class="vc-rbar-wrap">
+          <div style="font-size:11px;color:#64748b;margin-bottom:4px">효과크기 η² 시각화 (기준선 η²=0.35 = 100%)</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;background:#e2e8f0;border-radius:4px;height:12px;overflow:hidden">
+              <div style="height:100%;width:89.9%;background:#dc2626;border-radius:4px"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#dc2626;white-space:nowrap">η²=0.3146 (대효과 (η²≥0.14))</span>
+          </div>
+        </div>
+        <div class="vc-group-section">
+          <div style="font-size:12px;font-weight:600;color:#475569;margin-bottom:8px">집단별 Y1 평균 수익률 (내림차순)</div>
+          <div class="grp-bars"><div class="grp-row">
+              <div class="grp-label">매우높음<small> (n=423)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:88.0%"></div></div>
+              <span class="grp-val">123.17%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">높음<small> (n=81)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:30.3%"></div></div>
+              <span class="grp-val">42.4%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">보통<small> (n=78)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:18.7%"></div></div>
+              <span class="grp-val">26.12%</span>
+            </div><div class="grp-row">
+              <div class="grp-label">낮음<small> (n=17)</small></div>
+              <div class="grp-track"><div class="grp-fill" style="width:16.1%"></div></div>
+              <span class="grp-val">22.56%</span>
+            </div></div>
+        </div>
+        <div class="vc-interp">💬 <strong>해석:</strong> F = 91.0384, p ≈ 0 (p&lt;0.001)로 <strong>통계적으로 매우 유의</strong>합니다. η² = 0.3146로 <strong>전체 10개 변수(X1~X10) 중 가장 높은 설명력</strong>을 보이며, 운용사가 수익률 차이의 약 31.5%를 설명합니다. 미래에셋(123.17%) ↔ 키움(22.56%)으로 최대 약 100%p 이상의 격차가 발생합니다. 이처럼 극단적인 차이가 나는 이유는 운용사의 ETF 포트폴리오 구성의 차이 때문입니다. 미래에셋은 한국 주식 시장에 집중적으로 투자하는 ETF 비중이 높아 분석 기간 한국 시장 강세의 직접적 수혜를 받았습니다. 반면 다른 운용사들은 미국·중국 등 상대적으로 부진한 시장의 ETF 비중이 높았습니다. <strong>중요한 주의사항: 이 결과는 2025~2026년이라는 특정 기간의 한국 시장 강세 국면이 반영된 것입니다. 과거 수익률이 미래를 보장하지 않으며, 시장 환경이 달라지면 운용사별 수익률 순위도 바뀔 수 있습니다.</strong></div>
+      </div>
+    </div></div>
   </div>
 </section>
 
