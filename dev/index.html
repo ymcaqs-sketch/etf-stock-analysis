@@ -333,71 +333,192 @@ a{text-decoration:none;color:inherit}
 /* ── 스탯카드 단위 텍스트 ── */
 .sc-unit{font-size:14px;font-weight:400}
 
-/* ── 결론 섹션 그리드 ── */
+/* ── 결론 섹션 그리드 & 카드 ── */
 .cln-2grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;font-size:12px}
-.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:13px}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .finding-card{border-radius:8px;padding:18px 20px}
+.conclusion-banner{
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  border-radius:10px;padding:20px 24px;margin-bottom:20px;color:#fff;
+}
+.conclusion-banner-eyebrow{
+  font-size:11px;font-weight:600;letter-spacing:1.5px;
+  color:#94a3b8;margin-bottom:10px;text-transform:uppercase;
+}
+.conclusion-banner-title{
+  font-size:16px;font-weight:700;line-height:1.75;color:#e2e8f0;
+  word-break:keep-all;
+}
+.conclusion-banner-note{
+  margin-top:12px;font-size:12px;color:#64748b;line-height:1.65;
+}
+.scenario-inner-card{
+  background:#fff;border-radius:8px;padding:16px;
+}
+.scenario-result-label{font-size:11px;color:#64748b}
+.scenario-result-val{font-size:24px;font-weight:800;line-height:1.3}
+.scenario-result-note{font-size:11px;color:#64748b}
+.scenario-warning{
+  margin-top:14px;font-size:12px;color:#64748b;
+  background:#fffbeb;padding:10px 14px;border-radius:6px;border:1px solid #fde68a;
+  line-height:1.65;
+}
 
-/* ── 반응형 768px 이하 ── */
+/* ══════════════════════════════════════
+   반응형 — 태블릿 768px 이하
+══════════════════════════════════════ */
 @media(max-width:768px){
-  .sidebar{
-    position:fixed;left:0;top:var(--header-h);
-    transform:translateX(-100%);
-    height:calc(100vh - var(--header-h));
-  }
+  /* ── 레이아웃 ── */
+  .sidebar{position:fixed;left:0;top:var(--header-h);transform:translateX(-100%);height:calc(100vh - var(--header-h));z-index:200}
   .sidebar.open{transform:translateX(0);box-shadow:var(--shadow-lg)}
-  .main-content{padding:12px 10px}
-  .cat-section{padding:16px 14px;margin-bottom:16px}
+  .main-content{padding:12px 10px;max-width:100%}
+  .cat-section{padding:16px 14px;margin-bottom:14px;border-radius:var(--r-md)}
+
+  /* ── 헤더 ── */
+  .header-sub{display:none}
+  .header-title{font-size:14px}
+
+  /* ── 섹션 헤더 ── */
+  .sec-header{padding:14px 16px;gap:12px;margin-bottom:16px}
+  .sec-icon{font-size:24px;flex-shrink:0}
   .sec-title{font-size:16px}
   .sec-desc{font-size:11px}
-  .grid-2,.grid-4{grid-template-columns:1fr 1fr}
-  .anova-bar-row{grid-template-columns:1fr;gap:4px}
-  .anova-bar-label{white-space:normal;font-size:11px}
-  .anova-bar-track{height:24px}
-  .raw-search{width:100%}
-  .raw-dl-btn{margin-left:0;width:100%;text-align:center}
-  .vc-formula-eq{font-size:11px;padding:6px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .var-card-bd{padding:14px 14px}
-  .vc-result-row{grid-template-columns:1fr 1fr;gap:8px}
-  .vc-stats-grid{grid-template-columns:1fr 1fr;gap:6px}
-  .grp-row{grid-template-columns:1fr auto}
-  .grp-track{display:none}
-  .sub-sec{margin-bottom:20px;padding-bottom:20px}
-  .predict-box{padding:14px 14px}
-  .predict-scenario{padding:8px 10px;font-size:12px}
-  .finding-card{padding:14px 16px}
-}
-/* ── 반응형 480px 이하 ── */
-@media(max-width:480px){
+
+  /* ── 서브섹션 ── */
+  .sub-sec{margin-bottom:18px;padding-bottom:18px}
+  .sub-title{font-size:13px;margin-bottom:10px}
+
+  /* ── 그리드 ── */
+  .grid-2{grid-template-columns:1fr 1fr}
   .grid-4{grid-template-columns:1fr 1fr}
-  .grid-2{grid-template-columns:1fr}
-  .vc-result-row{grid-template-columns:1fr}
-  .vc-stats-grid{grid-template-columns:1fr 1fr}
+
+  /* ── 스탯 카드 ── */
   .stat-card{padding:12px 14px}
   .sc-val{font-size:20px}
-  .sec-header{padding:14px 16px}
-  .sec-icon{font-size:24px}
-  /* 결론 섹션 그리드 → 1열 */
-  .cln-2grid{grid-template-columns:1fr}
-  .scenario-grid{grid-template-columns:1fr}
-  /* 테이블 min-width 해제 */
+  .sc-sub{font-size:10px}
+
+  /* ── 가이드/핵심 박스 ── */
+  .guide-tip{font-size:11.5px;padding:10px 12px}
+  .key-finding{font-size:12.5px;padding:11px 13px}
+
+  /* ── 변수 카드 헤더 ── */
+  .var-card-hd{padding:12px 14px;flex-wrap:wrap;gap:8px}
+  .vc-code{font-size:14px;padding:2px 8px}
+  .vc-name{font-size:13px;flex:1;min-width:0}
+  .var-card-bd{padding:14px 14px}
+
+  /* ── 변수 설명/해석 ── */
+  .vc-desc{font-size:12.5px;line-height:1.75;margin-bottom:12px;padding-bottom:12px}
+  .vc-interp{font-size:12.5px;padding:11px 13px}
+
+  /* ── 수식 박스 ── */
+  .vc-formula{padding:10px 12px}
+  .vc-formula-title{font-size:11.5px}
+  .vc-formula-eq{
+    font-size:11px;padding:6px 10px;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
+    white-space:nowrap;display:block;
+  }
+  .vc-formula-note{font-size:10.5px;line-height:1.6}
+
+  /* ── 결과 그리드 ── */
+  .vc-result-row{grid-template-columns:1fr 1fr;gap:8px}
+  .vc-result-item{padding:8px 10px}
+  .vc-rv{font-size:13px}
+  .vc-stats-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .vc-stat{padding:7px 9px}
+  .vc-stat-v{font-size:13px}
+
+  /* ── 상관 강도 바 ── */
+  .vc-rbar-wrap{margin-bottom:10px}
+
+  /* ── 그룹 바 (변수 카드 내) ── */
+  .grp-row{grid-template-columns:1fr auto}
+  .grp-track{display:none}
+  .grp-val{font-size:13px;font-weight:700}
+
+  /* ── ANOVA 바 ── */
+  .anova-summary{padding:10px 12px;gap:8px}
+  .anova-f{font-size:13px}
+  .anova-bar-row{grid-template-columns:1fr;gap:4px}
+  .anova-bar-label{white-space:normal;font-size:11.5px;padding-top:2px}
+  .anova-bar-track{height:26px}
+  .anova-bar-val{font-size:11px;right:8px}
+
+  /* ── 예측 박스 ── */
+  .predict-box{padding:14px 14px}
+  .predict-box-title{font-size:13px}
+  .predict-list li{font-size:12.5px}
+  .predict-scenario{padding:8px 10px;font-size:12px}
+
+  /* ── 결론 카드 ── */
+  .finding-card{padding:14px 16px}
+  .cln-2grid{gap:6px}
+  .scenario-grid{gap:10px}
+  .conclusion-banner{padding:16px 18px}
+  .conclusion-banner-title{font-size:14px}
+  .scenario-inner-card{padding:14px}
+  .scenario-result-val{font-size:20px}
+
+  /* ── 로우 데이터 ── */
+  .raw-search{width:100%}
+  .raw-dl-btn{margin-left:0;width:100%;text-align:center}
+  .raw-toolbar{gap:6px}
+}
+
+/* ══════════════════════════════════════
+   반응형 — 모바일 480px 이하
+══════════════════════════════════════ */
+@media(max-width:480px){
+  /* ── 레이아웃 ── */
+  .main-content{padding:10px 8px}
+  .cat-section{padding:12px 10px;margin-bottom:10px}
+
+  /* ── 그리드: 개요 4개 카드 → 2열 유지, 기타 → 1열 ── */
+  .grid-4{grid-template-columns:1fr 1fr}
+  .grid-2{grid-template-columns:1fr}
+
+  /* ── 변수 결과 → 1열 ── */
+  .vc-result-row{grid-template-columns:1fr}
+  .vc-stats-grid{grid-template-columns:1fr 1fr}
+
+  /* ── 수식 폰트 더 축소 ── */
+  .vc-formula-eq{font-size:10px;padding:5px 8px}
+  .vc-formula-note{font-size:10px}
+
+  /* ── 테이블 min-width 해제 ── */
   .stbl{min-width:0;font-size:11px}
   .stbl-wide{min-width:0}
-  .stbl th,.stbl td{padding:6px 8px}
-  /* 사후검정 테이블 컬럼 초기화 */
+  .stbl th,.stbl td{padding:5px 7px;font-size:11px}
+  .stbl-wide th,.stbl-wide td{white-space:normal;word-break:keep-all}
+
+  /* ── 사후검정 테이블 ── */
+  .posthoc-tbl{font-size:10.5px}
   .posthoc-tbl th:nth-child(n),.posthoc-tbl td:nth-child(n){
-    width:auto;min-width:0;max-width:none;font-size:10px;padding:5px 6px
+    width:auto;min-width:0;max-width:none;padding:5px 5px
   }
-  /* 수식 박스 */
-  .vc-formula-eq{font-size:10px;padding:5px 8px}
-  /* predict-box 패딩 축소 */
-  .predict-box{padding:12px 12px}
-  .predict-scenario{font-size:11.5px}
-  /* 발견 카드 패딩 축소 */
-  .finding-card{padding:12px 14px}
-  /* 100만 원 시나리오 폰트 */
-  .scenario-grid .sc-result-val{font-size:20px}
+
+  /* ── 결론 그리드 → 1열 ── */
+  .cln-2grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:1fr}
+
+  /* ── 예측/결론 박스 ── */
+  .predict-box{padding:12px 10px}
+  .predict-scenario{font-size:11.5px;padding:7px 9px}
+  .finding-card{padding:12px 12px}
+
+  /* ── ANOVA 바 높이 ── */
+  .anova-bar-track{height:22px}
+  .anova-bar-val{font-size:10px}
+  /* ── 결론 배너 & 시나리오 ── */
+  .conclusion-banner{padding:14px 14px}
+  .conclusion-banner-title{font-size:13px}
+  .scenario-inner-card{padding:12px}
+  .scenario-result-val{font-size:18px}
+  .scenario-warning{font-size:11.5px;padding:8px 10px}
 }
+
+/* ── 데스크탑: 사이드바 항상 표시, 메뉴버튼 숨김 ── */
 @media(min-width:769px){.menu-btn{display:none}}
 /* ── 기술통계 테이블 번갈아 색상 강조 ── */
 .stbl .row-y{background:#eff6ff!important;font-weight:600}
@@ -455,7 +576,9 @@ a{text-decoration:none;color:inherit}
   font-family:'Courier New',monospace;font-size:13px;
   background:#1e293b;color:#e2e8f0;
   padding:8px 14px;border-radius:var(--r-sm);
-  margin:6px 0;line-height:1.6;overflow-x:auto;
+  margin:6px 0;line-height:1.6;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  white-space:nowrap;display:block;
 }
 .vc-formula-note{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7}
 .vc-result-row{
@@ -1838,13 +1961,13 @@ a{text-decoration:none;color:inherit}
   <div class="sub-sec">
 
     <!-- 한 줄 요약 -->
-    <div style="background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:10px;padding:20px 24px;margin-bottom:20px;color:#fff">
-      <div style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:#94a3b8;margin-bottom:10px;text-transform:uppercase">핵심 한 줄 요약</div>
-      <div style="font-size:16px;font-weight:700;line-height:1.7;color:#e2e8f0">
+    <div class="conclusion-banner">
+      <div class="conclusion-banner-eyebrow">핵심 한 줄 요약</div>
+      <div class="conclusion-banner-title">
         ETF 수익률은 <span style="color:#34d399">얼마나 큰 상품인지, 수수료가 얼마인지</span>보다<br>
         <span style="color:#60a5fa">어느 나라에 투자하는지, 어느 회사가 운용하는지</span>가 훨씬 더 중요합니다.
       </div>
-      <div style="margin-top:12px;font-size:12px;color:#64748b;line-height:1.6">
+      <div class="conclusion-banner-note">
         수치로 보면: 순자산·보수 등 6개 재무지표 → 수익률의 <strong style="color:#f87171">2.4%</strong> 설명 /
         투자시장·운용사 등 범주형 변수 → 수익률의 <strong style="color:#34d399">최대 31.5%</strong> 설명
       </div>
@@ -1938,7 +2061,7 @@ a{text-decoration:none;color:inherit}
     <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px 22px;margin-bottom:20px">
       <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:16px">💰 만약 1년 전(2025년 초) 100만 원을 투자했다면?</div>
       <div class="scenario-grid">
-        <div style="background:#fff;border:2px solid #16a34a;border-radius:8px;padding:16px">
+        <div class="scenario-inner-card" style="border:2px solid #16a34a">
           <div style="font-weight:700;color:#15803d;margin-bottom:10px;font-size:13px">✅ 최적 조합 시나리오</div>
           <div style="color:#374151;line-height:2.0;font-size:12.5px">
             투자시장: <strong>한국</strong><br>
@@ -1947,12 +2070,12 @@ a{text-decoration:none;color:inherit}
             전략: <strong>패시브</strong>
           </div>
           <div style="margin-top:12px;padding-top:12px;border-top:1px solid #dcfce7">
-            <span style="font-size:11px;color:#64748b">100만 원 → 예상 결과</span><br>
-            <span style="font-size:24px;font-weight:800;color:#16a34a">약 230만 원</span><br>
-            <span style="font-size:11px;color:#64748b">(집단 평균 기준 약 +130% 수익)</span>
+            <div class="scenario-result-label">100만 원 → 예상 결과</div>
+            <div class="scenario-result-val" style="color:#16a34a">약 230만 원</div>
+            <div class="scenario-result-note">(집단 평균 기준 약 +130% 수익)</div>
           </div>
         </div>
-        <div style="background:#fff;border:2px solid #dc2626;border-radius:8px;padding:16px">
+        <div class="scenario-inner-card" style="border:2px solid #dc2626">
           <div style="font-weight:700;color:#b91c1c;margin-bottom:10px;font-size:13px">❌ 불리한 조합 시나리오</div>
           <div style="color:#374151;line-height:2.0;font-size:12.5px">
             투자시장: <strong>신흥국(이머징)</strong><br>
@@ -1961,13 +2084,13 @@ a{text-decoration:none;color:inherit}
             전략: <strong>액티브</strong>
           </div>
           <div style="margin-top:12px;padding-top:12px;border-top:1px solid #fee2e2">
-            <span style="font-size:11px;color:#64748b">100만 원 → 예상 결과</span><br>
-            <span style="font-size:24px;font-weight:800;color:#dc2626">약 123~139만 원</span><br>
-            <span style="font-size:11px;color:#64748b">(집단 평균 기준 약 +23~39% 수익)</span>
+            <div class="scenario-result-label">100만 원 → 예상 결과</div>
+            <div class="scenario-result-val" style="color:#dc2626">약 123~139만 원</div>
+            <div class="scenario-result-note">(집단 평균 기준 약 +23~39% 수익)</div>
           </div>
         </div>
       </div>
-      <div style="margin-top:14px;font-size:12px;color:#64748b;background:#fffbeb;padding:10px 14px;border-radius:6px;border:1px solid #fde68a">
+      <div class="scenario-warning">
         ⚠️ 위 수치는 각 집단의 <strong>평균값</strong>이며, 동일 집단 내에서도 개별 ETF 수익률은 큰 편차가 있습니다.
         또한 <strong>과거 성과가 미래를 보장하지 않습니다.</strong> 한국 시장이 2025~2026년처럼 강세를 계속 유지한다는 보장은 없으며,
         시장 환경이 바뀌면 순위도 달라집니다.
