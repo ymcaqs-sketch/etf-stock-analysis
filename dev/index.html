@@ -373,6 +373,31 @@ a{text-decoration:none;color:inherit}
 @media(min-width:769px){.menu-btn{display:none}}
 /* ── 기술통계 테이블 번갈아 색상 강조 ── */
 .stbl .row-y{background:#eff6ff!important;font-weight:600}
+/* ── 예측 시사점 박스 ── */
+.predict-box{
+  background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);
+  border:1px solid #c4b5fd;border-left:5px solid #7c3aed;
+  border-radius:var(--r-md);padding:18px 20px;margin-top:20px;
+}
+.predict-box-title{
+  font-size:14px;font-weight:700;color:#5b21b6;
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.predict-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.predict-list li{
+  font-size:13px;line-height:1.8;color:#3b0764;
+  padding-left:20px;position:relative;
+}
+.predict-list li::before{
+  content:'▸';position:absolute;left:0;color:#7c3aed;font-weight:700;
+}
+.predict-list li strong{color:#5b21b6}
+.predict-scenario{
+  background:rgba(124,58,237,.07);border-radius:var(--r-sm);
+  padding:10px 14px;margin-top:8px;
+  font-size:12.5px;line-height:1.9;color:#3b0764;
+  border:1px dashed #c4b5fd;
+}
 /* ── 변수 카드 ── */
 .var-cards{display:flex;flex-direction:column;gap:20px}
 .var-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
@@ -1164,6 +1189,32 @@ a{text-decoration:none;color:inherit}
     </table>
     </div>
   </div>
+
+  <div class="sub-sec">
+    <h3 class="sub-title">4. 기술통계로 무엇을 예측할 수 있을까?</h3>
+    <div class="predict-box">
+      <div class="predict-box-title">🔮 기술통계 기반 예측 시사점</div>
+      <ul class="predict-list">
+        <li><strong>임의로 선택한 ETF의 수익률은 중앙값(~78.16%) 부근일 가능성이 가장 높습니다.</strong>
+          평균(96.59%)은 소수의 초고수익 ETF(최대 350.24%)가 끌어올린 값으로, 실제 대부분 ETF의 수익률은 이보다 낮습니다.
+          "평균 수익률이 96.59%니까 어느 ETF나 비슷하겠지"라는 예측은 오류입니다.
+        </li>
+        <li><strong>절반의 ETF는 37.68% ~ 147.31% 사이에 분포합니다(IQR 범위).</strong>
+          즉, 임의 선택한 ETF가 이 범위에 들어올 확률이 50%입니다.
+          이 범위를 벗어난 ETF는 특수한 시장 또는 전략을 추종하는 경우가 많습니다.
+        </li>
+        <li><strong>변동계수(CV) = 76.17% — 기술통계만으로는 수익률 예측이 불가능합니다.</strong>
+          CV가 100%를 크게 초과한다는 것은 개별 ETF 간 수익률 편차가 평균보다 훨씬 크다는 의미입니다.
+          단순히 "평균적인 ETF를 고르겠다"는 전략은 실제로 수익률이 매우 낮은 ETF를 선택할 위험도 그만큼 크다는 뜻입니다.
+        </li>
+        <li><strong>오른쪽 편포(왜도=0.9064) — 수익률 분포는 비대칭입니다.</strong>
+          소수 ETF가 300%+ 이상의 극단적 고수익을 달성한 반면, 다수의 ETF는 중앙값 이하에 몰려 있습니다.
+          기술통계 데이터만 보고 "어떤 ETF를 골라야 하는가?"를 결정하는 것은 적절하지 않습니다.
+          수익률을 예측하려면 <strong>어느 시장에 투자하는지, 어떤 운용사인지</strong> 같은 범주형 정보가 필수입니다.
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ③ 연속형 변수 분석 -->
@@ -1301,6 +1352,34 @@ a{text-decoration:none;color:inherit}
   </div>
   <div class="key-finding">📌 R²=0.0244 — 6개 연속형 변수가 수익률 변동의 <strong>2.4%만 설명</strong>합니다.
   나머지 97.6%는 투자시장, 운용사 등 범주형 변수 및 분석되지 않은 외부 요인(시장 환경, 기초지수 특성 등)에 의해 결정됩니다.</div>
+  <div class="predict-box">
+    <div class="predict-box-title">🔮 연속형 변수 분석 기반 예측 시사점</div>
+    <ul class="predict-list">
+      <li><strong>R² = 0.0244 — 연속형 변수만으로는 수익률을 예측할 수 없습니다.</strong>
+        순자산·보수·존속기간·거래대금·외국인보유비율·변동성 6개 변수를 모두 합쳐도
+        수익률 변동의 단 2.4%만 설명합니다.
+        어떤 ETF의 순자산이 크다거나 총보수가 낮다는 정보만으로는 수익률 예측에 거의 도움이 되지 않습니다.
+      </li>
+      <li><strong>그나마 유의미한 변수는 X4(평균거래대금)와 X1(순자산총액)입니다.</strong>
+        두 변수 모두 p&lt;0.01로 통계적으로 유의하지만, 단독 설명력(R²)은 각각
+        1.74%, 1.46%에 불과합니다.
+        "거래가 활발한 대형 ETF는 수익률이 조금 높은 경향이 있다"는 약한 패턴은 있지만,
+        이것만으로 투자 결정을 내리는 것은 위험합니다.
+      </li>
+      <li><strong>총보수(X2)와 외국인보유비율(X5)은 수익률 예측에 통계적으로 무관합니다(ns).</strong>
+        비용이 낮다고 수익률이 높아지거나, 외국인이 많이 보유했다고 수익률이 좋다는 근거가 없습니다.
+        단, 총보수는 동일 지수를 추종하는 ETF끼리 비교할 때는 여전히 중요한 선택 기준입니다.
+      </li>
+      <li><strong>시나리오 예측:</strong>
+        <div class="predict-scenario">
+          순자산 5,000억 원, 총보수 0.05%, 존속기간 10년, 평균거래대금 10,000백만 원의 ETF가 있을 때<br>
+          이 모형의 예측값은 절편(+85.49) + 각 변수의 회귀계수 × 값의 합입니다.<br>
+          그러나 이 예측값의 신뢰 구간은 매우 넓고(오차 범위 수십 %p), 실제 수익률과 크게 다를 가능성이 높습니다.<br>
+          <strong>→ 연속형 지표는 ETF 선별의 참고 기준으로만 사용하고, 핵심 판단 기준은 투자시장과 운용사로 삼아야 합니다.</strong>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 </section>
 
@@ -1680,6 +1759,45 @@ a{text-decoration:none;color:inherit}
             </tr></tbody>
         </table></div>
 </div>
+
+  <div class="sub-sec">
+    <h3 class="sub-title">5. 범주형 변수로 무엇을 예측할 수 있을까?</h3>
+    <div class="predict-box">
+      <div class="predict-box-title">🔮 범주형 변수 분석 기반 예측 시사점</div>
+      <ul class="predict-list">
+        <li><strong>운용사(η²=0.3146)와 투자시장(η²=0.2642) 두 변수만으로 수익률 방향을 40~60% 예측할 수 있습니다.</strong>
+          연속형 변수 6개를 합쳐도 2.4%밖에 설명 못하는 것과 극명히 대비됩니다.
+          즉, ETF를 고를 때 순자산이나 보수율보다 <strong>"어디에 투자하는 ETF인가"와 "누가 운용하는 ETF인가"</strong>가 훨씬 중요한 예측 변수입니다.
+        </li>
+        <li><strong>시나리오 1 — 한국 시장 + 미래에셋 운용 (고수익 조합):</strong>
+          <div class="predict-scenario">
+            투자시장 = 한국 → X7 집단 평균 수익률 약 129.6%<br>
+            운용사 = 미래에셋 → X10 집단 평균 수익률 약 123.2%<br>
+            → 이 두 조건을 동시에 만족하는 ETF는 분석 기간 기준 <strong>고수익 그룹에 속할 가능성이 높습니다.</strong><br>
+            단, 이는 2025~2026년 한국 시장 강세 국면의 결과이며, 미래 시장 환경이 바뀌면 순위도 바뀝니다.
+          </div>
+        </li>
+        <li><strong>시나리오 2 — 신흥국(이머징) 시장 + 소형 운용사 (저수익 조합):</strong>
+          <div class="predict-scenario">
+            투자시장 = 이머징(신흥국) → X7 집단 평균 수익률 약 39.1%<br>
+            운용사 = 키움 → X10 집단 평균 수익률 약 22.6%<br>
+            → 이 조건의 ETF는 분석 기간 <strong>저수익 그룹에 해당할 가능성이 높습니다.</strong><br>
+            시나리오 1 대비 약 100%p 이상의 수익률 차이 — 이것이 투자시장·운용사 선택의 중요성입니다.
+          </div>
+        </li>
+        <li><strong>복제방법(완전복제)과 투자전략(패시브)도 수익률 예측에 유의미한 신호를 제공합니다.</strong>
+          완전복제(η²=0.1312) ETF는 평균 127.59%로 최적화 방식 대비 높은 수익률을 기록했고,
+          패시브 전략(η²=0.0318)은 액티브 대비 약 46%p 더 높은 수익률을 달성했습니다.
+          이 두 요인은 독립적이 아니라 "국내 주식에 투자하는 완전복제 패시브 ETF" 형태로 묶이는 경향이 있어,
+          투자시장·운용사 조합과 함께 해석해야 합니다.
+        </li>
+        <li><strong>단일 변수 예측의 한계:</strong> 각 범주형 변수는 독립적으로도 유의하지만,
+          실제 예측 정확도를 높이려면 투자시장 + 운용사 + 복제방법을 조합한 다변수 접근이 필요합니다.
+          예를 들어, "한국 시장 ETF 중에서도 어느 운용사인가"에 따라 수익률 편차가 추가로 발생합니다.
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ⑤ 종합 결론 -->
